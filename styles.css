@@ -1,0 +1,519 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+    min-height: 100vh;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 20px 40px;
+    border-bottom: 2px solid red;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+  }
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+  }
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 5px;
+  }
+  .navbar a:hover {
+    color: rgb(255, 255, 255);
+  }
+  .navbar a.active {
+    background-color: red;
+    color: #ffffff;
+  }
+  main {
+    padding-top: 100px;
+  }
+  .section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  h1, h2 {
+    color: red;
+    margin-bottom: 20px;
+  }
+  h3 {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    color: red;
+  }
+
+   /* LINE ZVYAZOK */
+   .horizontal-contact {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #333;
+    color: white;
+    padding: 100px 5px;
+    writing-mode: vertical-rl;
+    text-align: center;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .contact-bar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 0;
+    height: auto;
+    background: #222;
+    color: white;
+    overflow: hidden;
+    border-radius: 10px 0 0 10px;
+    transition: width 0.4s;
+    z-index: 1001;
+  }
+  
+  .contact-bar.active {
+    width: 300px;
+    padding: 20px;
+  }
+  
+  .contact-content {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .contact-bar.active .contact-content {
+    opacity: 1;
+  }
+  
+  .contact-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .close-btn {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .contact-content label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  .contact-content input,
+  .contact-content textarea {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .contact-content button {
+    width: 100%;
+    padding: 10px;
+    background: #444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .horizontal-contact {
+      padding: 18px 8px;
+      font-size: 14px;
+      right: 0px;
+    }
+  }
+  .contact-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none;
+  }
+  
+  .contact-overlay.active {
+    display: block;
+  }
+  
+  /* PRODUCT (TOVAR) */
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  .product-card {
+    background-color: #222;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  .product-card h3 {
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+  }
+  .product-card p {
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  /* Кнопка "Купити" */
+  .buy-btn {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+
+  .buy-btn:hover {
+    background-color: darkred;
+  }
+
+  /* TABLICA */
+  .price-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.3s;
+    margin-bottom: 20px;
+  }
+  .price-table thead {
+    background-color: #555;
+    color: #fff;
+  }
+  .price-table th,
+  .price-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #444;
+  }
+  .price-table tbody tr {
+    background-color: #333;
+    color: #fff;
+  }
+  .price-table td:not(:first-child) {
+    background-color: red;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  /* ANIMACIA */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .content-wrapper {
+    max-width: 800px;
+    width: 100%;
+  }
+
+  /* STRELKA */
+  .arrow {
+    font-size: 40px; /* Размер стрелки */
+    animation: moveUpDown 1.5s ease-in-out infinite; /* Анимация с плавным движением */
+  }
+  
+  @keyframes moveUpDown {
+    0%, 100% {
+      transform: translateY(0); /* Стрелка на месте */
+    }
+    25% {
+      transform: translateY(10px); /* Стрелка опускается вниз */
+    }
+    50% {
+      transform: translateY(-10px); /* Стрелка поднимается вверх */
+    }
+    75% {
+      transform: translateY(10px); /* Стрелка снова опускается вниз */
+    }
+  }
+
+/* POSITION STRELKI */
+  .arrow {
+    position: absolute;
+    bottom: 10px;
+    transform: translateX(-50%);
+  }
+  
+/* DRUK STYLE PHOTO */
+.druk-card {
+    padding: 20px;
+    width: 100%; /* Розширюємо контейнер на всю доступну ширину */
+    max-width: 900px; /* Обмежуємо максимальну ширину контейнера */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Вирівнює зображення ліворуч */
+    align-items: flex-start; /* Вирівнює по верху */
+    gap: 10px; /* Простір між зображеннями */
+    margin: 0 auto;
+}
+
+.druk-card img {
+    width: calc(50% - 10px); /* Зображення займає 50% ширини мінус проміжок */
+    border-radius: 5px;
+    margin-bottom: 0; /* Прибираємо нижній відступ */
+    box-sizing: border-box; /* Враховуємо відступи в загальній ширині */
+}
+.button-3d {
+  background-color: red;
+  color: #ffffff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+.button-3d:hover {
+  background-color: darkred;
+}
+
+/* Стилі для мобільних пристроїв */
+@media (max-width: 767px) {
+    .druk-card {
+        width: 100%; /* Змінюємо ширину на 100% для мобільних */
+        padding: 10px; /* Зменшуємо відступи */
+    }
+
+    .druk-card img {
+        width: 100%; /* Зображення займає всю ширину на мобільних */
+        max-width: none; /* Забираємо обмеження по ширині */
+        margin-bottom: 10px; /* Додаємо відступ між зображеннями */
+    }
+
+    .druk-card {
+        flex-direction: column; /* Розташовуємо елементи по вертикалі на мобільних */
+        align-items: center; /* Центруємо елементи по вертикалі */
+    }
+
+@media (max-width: 767px) {
+  .navbar {
+    display: none; /* Скрываем навбар */
+  }
+
+  .logo {
+    font-size: 28px;
+    color: red
+
+  }
+
+  header {
+    justify-content: center; /* Центруем текст в header */
+    padding: 15px 20px;
+  }
+}
+
+}
+
+footer {
+    background-color: #222;
+    color: #eee;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 16px;
+    margin-top: 60px;
+  }
+  
+  .footer-content a {
+    color: red;
+    text-decoration: none;
+  }
+  
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
+  #about-us {
+    position: relative;
+  }
+  
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* або flex-start */
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.star-icon {
+  font-size: 34px;
+  color: gray;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+  line-height: 1;
+  margin-top: -2px; /* трохи підняти зірочку */
+}
+
+.star-icon.active {
+  color: red;
+}
+
+/* БУРГЕР */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1002;
+  gap: 6px;
+  margin-left: 20px;
+}
+
+.burger span {
+  width: 100%;
+  height: 3px;
+  background: red;
+  transition: 0.3s ease;
+  border-radius: 2px;
+}
+
+
+/* Анімація хрестика */
+.burger.active span:first-child {
+  transform: rotate(45deg) translate(5px, 1.5px);
+}
+
+.burger.active span:last-child {
+  transform: rotate(-45deg) translate(5px, -1.5px);
+}
+
+/* МОБІЛЬНЕ МЕНЮ */
+@media (max-width: 767px) {
+  .burger {
+    display: flex;
+  }
+
+  .navbar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #111;
+    padding: 20px 0;
+    z-index: 1001;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .navbar a {
+    font-size: 20px;
+  }
+}
+
+/* COOKIE BANNER */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #222;
+  color: #fff;
+  padding: 15px 20px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+
+.cookie-banner p {
+  margin: 0;
+  flex: 1;
+}
+
+.cookie-banner a {
+  color: red;
+  text-decoration: underline;
+}
+
+.cookie-close {
+  margin-left: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s ease;
+}
+
+.cookie-close:hover {
+  color: red;
+}

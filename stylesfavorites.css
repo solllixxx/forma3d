@@ -1,0 +1,226 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #111;
+  color: #fff;
+  min-height: 100vh;
+  padding-top: 100px; /* врахування фіксованого хедера */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 20px 40px;
+  border-bottom: 2px solid red;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+header a:hover {
+  color: red;
+}
+
+/* Оновлений стиль для посилання "Повернутись" */
+.back-link {
+  white-space: nowrap;
+}
+
+/* Для мобільних екранів прибираємо текст, лишаємо лише стрілочку */
+@media (max-width: 600px) {
+  .back-link {
+    font-size: 24px; /* більший розмір стрілочки */
+    position: relative;
+    width: 1ch; /* ширина одного символу */
+    overflow: hidden;
+    display: inline-block;
+  }
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+h1 {
+  color: red;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Контейнер з товарами - сітка */
+.product-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  width: 100%; /* для повної ширини */
+}
+
+/* Карточка товару */
+.product-card {
+  background-color: #222;
+  border: 2px solid red;
+  border-radius: 10px;
+  width: 250px;
+  padding: 20px;
+  
+  /* Центрування вмісту */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  object-fit: contain;
+  height: 180px;
+}
+
+.product-card h3,
+.product-card p {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.product-card h3 {
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  margin-bottom: 10px;
+  min-height: 48px; /* для вирівнювання по висоті */
+}
+
+.product-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* Кнопка "Купити" */
+.buy-btn {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+
+.buy-btn:hover {
+  background-color: darkred;
+}
+
+/* Дії під карточкою: кнопка + зірка */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Іконка зірки */
+.star-icon {
+  font-size: 28px;
+  color: gray;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+  line-height: 1;
+  margin-top: -2px; /* трохи підняти зірочку */
+}
+
+.star-icon:hover {
+  color: red;
+}
+
+.star-icon.active, .star-icon:hover {
+  color: red;
+}
+
+/* Повідомлення, якщо немає улюблених */
+#noFavoritesMsg {
+  font-size: 20px;
+  color: #bbb;
+  margin-top: -200px;
+}
+
+/* Адаптивність */
+@media (max-width: 900px) {
+  .product-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    width: 100%;
+  }
+
+  header {
+    padding: 15px 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+}
+
+footer {
+  background-color: #222;
+  color: #eee;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 16px;
+  margin-top: 60px;
+}
+
+.footer-content a {
+  color: red;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+#about-us {
+  position: relative;
+}
