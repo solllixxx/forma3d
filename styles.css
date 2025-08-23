@@ -507,13 +507,48 @@ footer {
 }
 
 .cookie-close {
-  margin-left: 15px;
-  font-size: 18px;
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 7px 13px;
+  border-radius: 5px;
   cursor: pointer;
-  color: #ccc;
-  transition: color 0.2s ease;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .cookie-close:hover {
-  color: red;
+  background-color: darkred;
+}
+
+.call-button {
+  position: fixed;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: bottom 0.3s ease, transform 0.2s ease, background-color 0.3s;
+  z-index: 9999;
+  bottom: 70px; /* коли банер є */
+}
+
+.call-button.active {
+  bottom: 20px; /* коли банер закрито */
+}
+
+.call-button:hover {
+  background-color: darkred;
+  transform: scale(1.1);
+}
+
+.call-button svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
 }

@@ -147,7 +147,7 @@ function openContact() {
 
 
   // COOKIE BANNER
-const COOKIE_POLICY_VERSION = "1.0"; // Змінюй при оновленні політики
+const COOKIE_POLICY_VERSION = "1.04"; // Змінюй при оновленні політики
 
 function checkCookieConsent() {
   const savedVersion = localStorage.getItem("cookiePolicyAcceptedVersion");
@@ -162,3 +162,8 @@ function acceptCookies() {
 }
 
 document.addEventListener("DOMContentLoaded", checkCookieConsent);
+
+function acceptCookies() {
+  document.getElementById("cookieBanner").style.display = "none";
+  document.getElementById("callButton").classList.add("active"); // опускаємо кнопку вниз
+}
