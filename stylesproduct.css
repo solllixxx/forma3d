@@ -45,7 +45,7 @@
   .content-wrapper {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
     max-width: 1200px;
   }
   
@@ -299,3 +299,45 @@ header a:hover {
   margin-left: 100px; 
 }
 
+/* COLOR PRODUCT */
+
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.color-circle.selected {
+  border: 2px solid #333;
+}
+
+.buy-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: not-allowed;
+  background: gray;
+  color: white;
+  transition: 0.3s;
+}
+
+.buy-button.active {
+  background: red;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .color-options {
+    justify-content: center;
+  }
+}

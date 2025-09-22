@@ -49,9 +49,21 @@
 Табличка для рослин — це зручний аксесуар для ведення записів про полив, добрива та інші етапи догляду за рослиною. Виготовлена з міцного матеріалу та має поверхню, на якій можна писати олівцем, маркером або ручкою. Допомагає не забути, коли востаннє поливали рослину чи додавали добриво. Ідеально підходить для кімнатних, балконних або садових рослин.</p>
               <p>• Кому підходить: 
 Для всіх, хто дбає про рослини — від початківців до досвідчених квітникарів. Особливо корисна для власників великої кількості зелених друзів, для теплиць, балконів або домашнього городу. Чудовий аксесуар для організованих людей і тих, хто хоче налагодити систему догляду за своїм "зеленим куточком".</p>
-                <h3>Обов'язково вказати номер телефону та назву продукту.</h3>
             <p>Ціна: ... ГРН</p>
-            <a href="https://send.monobank.ua/jar/9Ssse8SqZK"><button>До сплати</button></a>
+<!-- Кружечки для вибору кольору -->
+<div class="color-options">
+  <div class="color-circle" style="background:red;" data-color="червоний"></div>
+  <div class="color-circle" style="background:yellow;" data-color="жовтий"></div>
+  <div class="color-circle" style="background:blue;" data-color="синій"></div>
+  <div class="color-circle" style="background:green;" data-color="зелений"></div>
+  <div class="color-circle" style="background:black;" data-color="чорний"></div>
+  <div class="color-circle" style="background:white; border:1px solid #ccc;" data-color="білий"></div>
+</div>
+
+<!-- Кнопка -->
+<a id="buyLink" href="https://t.me/zippoziga">
+  <button id="buyButton" class="buy-button" disabled>До сплати</button>
+</a>
           </div>
         </div>
       </div>
@@ -71,6 +83,24 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+    <script>
+    const circles = document.querySelectorAll('.color-circle');
+    const buyButton = document.getElementById('buyButton');
+    const buyLink = document.getElementById('buyLink');
+
+    circles.forEach(circle => {
+      circle.addEventListener('click', () => {
+        // зняти виділення з усіх
+        circles.forEach(c => c.classList.remove('selected'));
+        // виділити обраний
+        circle.classList.add('selected');
+        // активувати кнопку
+        buyButton.classList.add('active');
+        buyButton.disabled = false;
+      });
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
