@@ -40,16 +40,22 @@
     <section class="section">
       <div class="content-wrapper">
         <div class="product-info">
-          <div class="product-image">
-            <img src="..." alt="..." />
-          </div>
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="zaglushka.png" class="active" alt="Заглушка на болт">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
           <div class="product-details">
-            <h1>...</h1>
+            <h1>Заглушка на болт</h1>
             <p>• Опис:
-                ...</p>
+                Заглушка на болт — це невеликий, але важливий елемент, який забезпечує акуратний зовнішній вигляд та додатковий захист кріплень. Виготовлена з міцного матеріалу, вона захищає болт від пилу, вологи та корозії. Має естетичний вигляд, що дозволяє гармонійно завершити будь-яку конструкцію чи виріб.</p>
               <p>• Кому підходить: 
-                ...</p>
-            <p>Ціна: ... ГРН</p>
+                Для майстрів, автолюбителів, будівельників та всіх, хто цінує охайність і довговічність своїх проектів. Ідеальна для побутового, автомобільного чи промислового використання. Підходить тим, хто хоче надати деталям завершеного, професійного вигляду.</p>
+            <p>Ціна: 50 ГРН</p>
 <!-- Кружечки для вибору кольору -->
 <div class="color-options">
   <div class="color-circle" style="background:red;" data-color="червоний"></div>
@@ -83,6 +89,41 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+    <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
 
     <script>
     const circles = document.querySelectorAll('.color-circle');

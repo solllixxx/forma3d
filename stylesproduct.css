@@ -341,3 +341,78 @@ header a:hover {
     justify-content: center;
   }
 }
+
+/* === Карусель фото товару === */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 15px;
+  border: 2px solid red;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+  background: #000;
+}
+
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  transition: opacity 0.4s ease;
+}
+
+.carousel img.active {
+  display: block;
+}
+
+/* Кнопки */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: #fff;
+  background: rgba(255, 0, 0, 0.25);
+  border: 1px solid rgba(255, 0, 0, 0.7);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.arrow:hover:not(:disabled) {
+  background: red;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: rgba(120, 120, 120, 0.2);
+  border-color: rgba(120, 120, 120, 0.3);
+  box-shadow: none;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+@media (max-width: 768px) {
+  .arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+}

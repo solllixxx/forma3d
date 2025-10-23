@@ -40,9 +40,15 @@
     <section class="section">
       <div class="content-wrapper">
         <div class="product-info">
-          <div class="product-image">
-            <img src="trex.jpg" alt="3D Фігурка динозавр Діно Рекс" />
-          </div>
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="trex.jpg" class="active" alt="3D Фігурка динозавр Діно Рекс">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
           <div class="product-details">
             <h1>3D Фігурка динозавр Діно Рекс</h1>
             <p>• Опис: Ця деталізована фігурка динозавра Діно Рекс виготовлена з екологічно чистого та міцного PLA-пластику. Фігурка представляє собою чудово опрацьовану модель динозавра, яка ідеально підійде для дитячих ігор та колекцій. Виготовлена з особливою увагою до деталей, вона дозволяє дітям не лише насолоджуватися іграшкою, але й дізнатися більше про цих величних істот, які жили на Землі мільйони років тому. Це ідеальний подарунок для хлопчиків і дівчаток, які люблять динозаврів та хочуть мати у своїй колекції оригінальну іграшку.</p>
@@ -85,6 +91,41 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+  <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
 
     <script>
     const circles = document.querySelectorAll('.color-circle');

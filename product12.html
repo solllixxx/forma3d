@@ -40,16 +40,22 @@
     <section class="section">
       <div class="content-wrapper">
         <div class="product-info">
-          <div class="product-image">
-            <img src="tablichka.webp" alt="12" />
-          </div>
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="tablichka.webp" class="active" alt="Табличка для рослин">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
           <div class="product-details">
             <h1>Табличка для рослин</h1>
             <p>• Опис:
 Табличка для рослин — це зручний аксесуар для ведення записів про полив, добрива та інші етапи догляду за рослиною. Виготовлена з міцного матеріалу та має поверхню, на якій можна писати олівцем, маркером або ручкою. Допомагає не забути, коли востаннє поливали рослину чи додавали добриво. Ідеально підходить для кімнатних, балконних або садових рослин.</p>
               <p>• Кому підходить: 
 Для всіх, хто дбає про рослини — від початківців до досвідчених квітникарів. Особливо корисна для власників великої кількості зелених друзів, для теплиць, балконів або домашнього городу. Чудовий аксесуар для організованих людей і тих, хто хоче налагодити систему догляду за своїм "зеленим куточком".</p>
-            <p>Ціна: ... ГРН</p>
+            <p>Ціна: 80 ГРН</p>
 <!-- Кружечки для вибору кольору -->
 <div class="color-options">
   <div class="color-circle" style="background:red;" data-color="червоний"></div>
@@ -83,6 +89,41 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+    <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
 
     <script>
     const circles = document.querySelectorAll('.color-circle');

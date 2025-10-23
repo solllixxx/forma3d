@@ -40,16 +40,22 @@
     <section class="section">
       <div class="content-wrapper">
         <div class="product-info">
-          <div class="product-image">
-            <img src="sigare.png" alt="11" />
-          </div>
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="sigare.png" class="active" alt="Портсигар 18 шт">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
           <div class="product-details">
             <h1>Портсигар 18 шт</h1>
             <p>• Опис:
 Портсигар на 18 штук — це стильний та практичний аксесуар для охайного зберігання сигарет. Він захищає їх від ламання, вологи та зминання, а також підкреслює індивідуальний стиль власника. Компактний і зручний, легко поміщається в кишені або сумці. Портсигар — це не лише функціональність, а й елемент іміджу.</p>
               <p>• Кому підходить: 
 Для курців, які цінують порядок, стиль і зручність. Ідеальний для тих, хто часто перебуває в русі, подорожує або хоче виділитись з-поміж одноразових пачок. Гарний подарунок для чоловіків і жінок, які віддають перевагу класичному аксесуару з характером.</p>
-            <p>Ціна: ... ГРН</p>
+            <p>Ціна: 250 ГРН</p>
 <!-- Кружечки для вибору кольору -->
 <div class="color-options">
   <div class="color-circle" style="background:red;" data-color="червоний"></div>
@@ -83,6 +89,41 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+    <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
 
     <script>
     const circles = document.querySelectorAll('.color-circle');

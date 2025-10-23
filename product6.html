@@ -40,9 +40,15 @@
     <section class="section">
       <div class="content-wrapper">
         <div class="product-info">
-          <div class="product-image">
-            <img src="funnel.webp" alt="Лійка для рюмок" />
-          </div>
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="funnel.webp" class="active" alt="Лійка для рюмок">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
           <div class="product-details">
             <h1>Лійка для рюмок</h1>
             <p>• Опис:
@@ -88,6 +94,41 @@
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
+
+    <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
 
     <script>
     const circles = document.querySelectorAll('.color-circle');
