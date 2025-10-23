@@ -146,24 +146,27 @@ function openContact() {
   });
 
 
-  // COOKIE BANNER
-const COOKIE_POLICY_VERSION = "1.04"; // Змінюй при оновленні політики
+const COOKIE_POLICY_VERSION = "1"; // Змінюй при оновленні політики
 
 function checkCookieConsent() {
   const savedVersion = localStorage.getItem("cookiePolicyAcceptedVersion");
   if (savedVersion !== COOKIE_POLICY_VERSION) {
     document.getElementById("cookieBanner").style.display = "flex";
+  } else {
+    // Якщо вже прийнято — можна активувати кнопку дзвінка
+    document.getElementById("callButton").classList.add("active");
   }
 }
 
 function acceptCookies() {
+  // Зберігаємо факт прийняття
   localStorage.setItem("cookiePolicyAcceptedVersion", COOKIE_POLICY_VERSION);
+
+  // Ховаємо банер
   document.getElementById("cookieBanner").style.display = "none";
+
+  // Можна додатково зробити щось, наприклад активувати кнопку
+  document.getElementById("callButton").classList.add("active");
 }
 
 document.addEventListener("DOMContentLoaded", checkCookieConsent);
-
-function acceptCookies() {
-  document.getElementById("cookieBanner").style.display = "none";
-  document.getElementById("callButton").classList.add("active"); // опускаємо кнопку вниз
-}

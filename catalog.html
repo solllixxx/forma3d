@@ -3,21 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#000"
+  <meta name="theme-color" content="#000" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Улюблені – Форма3D</title>
-  <link rel="stylesheet" href="stylesfavorites.css" />
-</head>
-<body>
-  <header>
-    <div class="logo">Форма3D</div>
-    <a href="catalog.html" class="back-link">← До каталогу</a>
-  </header>
+  <meta name="description" content="Замов свій 3D-друк — фігурки, моделі, кастомні дизайни. Швидко, якісно 💥" />
+  
+  <!-- Open Graph / Link Preview -->
+  <meta property="og:title" content="Форма3D — 3D-друк, фігурки, кастомні моделі" />
+  <meta property="og:description" content="Замов унікальні 3D-вироби — фігурки, підставки, брелоки, декор. Швидко, якісно та креативно!" />
+  <meta property="og:image" content="https://solllixxx.github.io/forma3d/logo.webp" />
+  <meta property="og:url" content="https://solllixxx.github.io/forma3d/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="uk_UA" />
 
+  <title>Форма3D - Магазин</title>
+  <link rel="icon" href="logo.webp" type="image/png">
+  <link rel="stylesheet" href="stylescatalog.css" />
+</head>
+<div class="contact-overlay" id="contactOverlay" onclick="closeContact()"></div>
+<div class="horizontal-contact" id="horizontalContact" onclick="openContact()">
+  Зв'язок
+</div>
+<div class="contact-bar" id="contactBar">
+  <div class="contact-content">
+    <div class="contact-header">
+      <span>Зв'язок</span>
+      <span class="close-btn" onclick="closeContact()">✖</span>
+    </div>
+    
+    <label>Email:</label>
+    <input type="email" id="email" value="zippoziga32@gmail.com" readonly />
+    
+    <label>Повідомлення:</label>
+    <textarea id="message" placeholder="Введіть ваше повідомлення..."></textarea>
+    
+    <button onclick="sendMail()">Відправити</button>      
+  </div>
+</div>
+<body>
+  <!-- Header -->
+<header>
+  <div class="left-section">
+    <div class="logo">Форма3D</div>
+    <div id="favoritesIcon" title="Улюблені товари">
+      ★
+      <span id="favoritesCount">0</span>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">← На головну</a>
+</header>
+
+  <!-- Main: Каталог -->
   <main>
-    <h1>Мої улюблені товари</h1>
-    <div id="favoritesContainer" class="product-grid">
+    <!-- Каталог -->
+    <!-- ЯКЩО НЕМАЄ ТОВАРА ЗАМІСТЬ КУПИТИ НАПИСАТИ ʼНЕМАЄ В НАЯВНОСТІʼ -->
+<section id="store" class="section">
+  <h1>Каталог товарів</h1>
 <!-- Ряд 1 -->
 <div class="product-grid">
   <div class="product-card" data-id="1">
@@ -97,9 +139,9 @@
   </div>
 
   <div class="product-card" data-id="8">
-    <img src="frog.jpg" alt="Товар 8" />
-    <h3>Фігурка жаби</h3>
-    <p>0 ГРН</p>
+    <img src="case.jpg" alt="Товар 8" />
+    <h3>Кейс для microSD-карт</h3>
+    <p>150 ГРН</p>
     <div class="actions">
       <a href="product8.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon" title="Додати в улюблені">☆</span>
@@ -153,7 +195,7 @@
 <!-- Ряд 5 -->
 <div class="product-grid">
   <div class="product-card" data-id="13">
-    <img src="case.jpg" alt="Товар 13" />
+    <img src="zaglushka.png" alt="Товар 13" />
     <h3>Заглушка на болт</h3>
     <p>50 ГРН</p>
     <div class="actions">
@@ -162,10 +204,11 @@
     </div>
   </div>
 
+<!-- НЕМАЄ ТОВАРІВ ЯК ЗʼЯВЛЯТЬСЯ ПРИБРАТИ!
   <div class="product-card" data-id="14">
     <img src="bookmark.webp" alt="Товар 14" />
-    <h3>Закладка для книг</h3>
-    <p>40 ГРН</p>
+    <h3>...</h3>
+    <p>0 ГРН</p>
     <div class="actions">
       <a href="product14.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon">☆</span>
@@ -174,21 +217,22 @@
 
   <div class="product-card" data-id="15">
     <img src="keycap.webp" alt="Товар 15" />
-    <h3>3D Keycap для клавіатури</h3>
-    <p>70 ГРН</p>
+    <h3>...</h3>
+    <p>0 ГРН</p>
     <div class="actions">
       <a href="product15.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon">☆</span>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Ряд 6 -->
+<!-- НЕМАЄ ТОВАРІВ ЯК ЗʼЯВЛЯТЬСЯ ПРИБРАТИ!
 <div class="product-grid">
   <div class="product-card" data-id="16">
     <img src="puzzle.webp" alt="Товар 16" />
-    <h3>3D Головоломка</h3>
-    <p>180 ГРН</p>
+    <h3>...</h3>
+    <p>0 ГРН</p>
     <div class="actions">
       <a href="product16.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon">☆</span>
@@ -197,8 +241,8 @@
 
   <div class="product-card" data-id="17">
     <img src="robot.webp" alt="Товар 17" />
-    <h3>3D Міні-робот</h3>
-    <p>230 ГРН</p>
+    <h3>...</h3>
+    <p>0 ГРН</p>
     <div class="actions">
       <a href="product17.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon">☆</span>
@@ -207,65 +251,27 @@
 
   <div class="product-card" data-id="18">
     <img src="penstand.webp" alt="Товар 18" />
-    <h3>Підставка для ручок</h3>
-    <p>110 ГРН</p>
+    <h3>...</h3>
+    <p>0 ГРН</p>
     <div class="actions">
       <a href="product18.html"><button class="buy-btn">Купити</button></a>
       <span class="star-icon">☆</span>
     </div>
   </div>
-</div>
-
-    <p id="noFavoritesMsg" style="display:none; text-align:center;">У вас ще немає улюблених товарів 😢</p>
+</div> -->
+</section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div id="footer" class="footer-content">
       <p><span style="font-size: 24px;">✉</span> Пошта: <a href="mailto:zippoziga32@gmail.com">zippoziga32@gmail.com</a></p>
-      <p>
-        ☎ Телефон:
-        <a href="tel:0677772819">0677772819</a> |
-        <a href="tel:0737772821">0737772821</a>
-      </p>
+      <p>☎ Телефон: <a href="tel:0677772819">0677772819</a></p>
       <p>✈ Telegram: <a href="https://t.me/zippoziga">@zippoziga</a></p>
-      <p>✎ Маєш ідеї? <a href="https://forms.gle/ZAtcrnYGYUspi13p6">Залишити відгук</a></p>
       <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
     </div>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const allCards = document.querySelectorAll('.product-card');
-      const noFavMsg = document.getElementById('noFavoritesMsg');
-      let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-      function updateNoFavoritesMsg() {
-        const visibleCards = Array.from(document.querySelectorAll('.product-card'))
-          .filter(card => card.style.display !== 'none');
-        noFavMsg.style.display = visibleCards.length === 0 ? 'block' : 'none';
-      }
-
-      allCards.forEach(card => {
-        const id = card.dataset.id;
-        if (!favorites.includes(id)) {
-          card.style.display = 'none';
-        } else {
-          const star = card.querySelector('.star-icon');
-          if (star) {
-            star.textContent = '★';
-            star.style.cursor = 'pointer';
-            star.addEventListener('click', () => {
-              favorites = favorites.filter(favId => favId !== id);
-              localStorage.setItem('favorites', JSON.stringify(favorites));
-              card.style.display = 'none';
-              updateNoFavoritesMsg();
-            });
-          }
-        }
-      });
-
-      updateNoFavoritesMsg();
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
