@@ -18,10 +18,11 @@ body {
   padding-top: 100px; /* врахування фіксованого хедера */
 }
 
+/* Header */
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between; /* логотип + зірочка зліва, стрілка справа */
   background-color: #000;
   padding: 20px 40px;
   border-bottom: 2px solid red;
@@ -29,38 +30,43 @@ header {
   top: 0;
   width: 100%;
   z-index: 1000;
+  gap: 30px; /* відстань між логотипом і зірочкою */
 }
 
-.logo {
+header .left-section {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* відстань між логотипом і зірочкою */
+}
+
+header .logo {
   font-size: 24px;
   font-weight: bold;
   color: red;
 }
 
-header a {
+/* Стрілка */
+.back-link {
+  font-size: 16px;
   color: #fff;
   text-decoration: none;
-  font-size: 16px;
   transition: color 0.3s;
 }
 
-header a:hover {
+.back-link:hover {
   color: red;
 }
 
-/* Оновлений стиль для посилання "Повернутись" */
-.back-link {
-  white-space: nowrap;
-}
-
-/* Для мобільних екранів прибираємо текст, лишаємо лише стрілочку */
-@media (max-width: 600px) {
-  .back-link {
-    font-size: 24px; /* більший розмір стрілочки */
-    position: relative;
-    width: 1ch; /* ширина одного символу */
-    overflow: hidden;
-    display: inline-block;
+/* Адаптив для мобільних */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+  }
+  .logo {
+    font-size: 28px;
+  }
+  #favoritesIcon {
+    font-size: 28px;
   }
 }
 
