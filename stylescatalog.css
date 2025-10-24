@@ -225,9 +225,6 @@ header .logo {
     text-align: center;
     transition: transform 0.3s ease;
   }
-  .product-card:hover {
-    transform: scale(1.05);
-  }
   .product-card img {
     width: 100%;
     border-radius: 5px;
@@ -290,15 +287,26 @@ footer {
 }
 
 .star-icon {
-  font-size: 34px;
+  font-size: 40px;
   color: gray;
   cursor: pointer;
   user-select: none;
-  transition: color 0.3s;
+  transition: color 0.3s ease, transform 0.2s ease;
   line-height: 1;
-  margin-top: -2px; /* трохи підняти зірочку */
+  margin-top: -6px;
 }
 
+/* Наведення — зірка стає червонішою */
+.star-icon:hover {
+  color: red;
+}
+
+/* Активна (додана в улюблені) */
 .star-icon.active {
   color: red;
+}
+
+/* При кліку знову стає сірою (видалена з улюбленого) */
+.star-icon.active:hover {
+  color: gray;
 }

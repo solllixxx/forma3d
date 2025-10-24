@@ -8,6 +8,32 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Улюблені – Форма3D</title>
   <link rel="stylesheet" href="stylesfavorites.css" />
+    <style>
+    #totalPrice {
+      text-align: center;
+      margin-top: 40px;
+      color: red;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    #clearFavoritesBtn {
+      display: block;
+      margin: 20px auto 60px;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    #clearFavoritesBtn:hover {
+      background-color: darkred;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -216,7 +242,11 @@
   </div>
 </div>
 
-    <p id="noFavoritesMsg" style="display:none; text-align:center;">У вас ще немає улюблених товарів 😢</p>
+    <p id="noFavoritesMsg" style="display:none; text-align:center;">У вас ще немає улюблених товарів ☹︎</p>
+
+    <!-- ✅ Загальна вартість + кнопка очищення -->
+    <h2 id="totalPrice"></h2>
+    <button id="clearFavoritesBtn" style="display:none;">Очистити улюблені</button>
   </main>
 
   <footer>
@@ -237,12 +267,34 @@
     document.addEventListener('DOMContentLoaded', () => {
       const allCards = document.querySelectorAll('.product-card');
       const noFavMsg = document.getElementById('noFavoritesMsg');
+      const totalPriceEl = document.getElementById('totalPrice');
+      const clearBtn = document.getElementById('clearFavoritesBtn');
       let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
       function updateNoFavoritesMsg() {
         const visibleCards = Array.from(document.querySelectorAll('.product-card'))
           .filter(card => card.style.display !== 'none');
         noFavMsg.style.display = visibleCards.length === 0 ? 'block' : 'none';
+      }
+
+      function updateTotalPrice() {
+        let total = 0;
+        const visibleCards = Array.from(document.querySelectorAll('.product-card'))
+          .filter(card => card.style.display !== 'none');
+        
+        visibleCards.forEach(card => {
+          const priceText = card.querySelector('p').textContent;
+          const price = parseInt(priceText.replace(/\D/g, '')) || 0;
+          total += price;
+        });
+
+        if (total > 0) {
+          totalPriceEl.textContent = `Загальна вартість: ${total} ГРН`;
+          clearBtn.style.display = 'block';
+        } else {
+          totalPriceEl.textContent = '';
+          clearBtn.style.display = 'none';
+        }
       }
 
       allCards.forEach(card => {
@@ -259,12 +311,23 @@
               localStorage.setItem('favorites', JSON.stringify(favorites));
               card.style.display = 'none';
               updateNoFavoritesMsg();
+              updateTotalPrice();
             });
           }
         }
       });
 
+      // 🧹 Очищення улюблених
+      clearBtn.addEventListener('click', () => {
+        localStorage.removeItem('favorites');
+        favorites = [];
+        allCards.forEach(card => (card.style.display = 'none'));
+        updateNoFavoritesMsg();
+        updateTotalPrice();
+      });
+
       updateNoFavoritesMsg();
+      updateTotalPrice();
     });
   </script>
 </body>
