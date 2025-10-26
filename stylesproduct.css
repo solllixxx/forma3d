@@ -348,8 +348,6 @@ header a:hover {
   width: 100%;
   height: auto;
   overflow: hidden;
-  border-radius: 15px;
-  border: 2px solid red;
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
   background: #000;
 }
