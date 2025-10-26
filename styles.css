@@ -31,21 +31,26 @@
     display: flex;
     gap: 30px;
   }
-  .navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    padding: 5px 10px;
-    transition: color 0.3s, background-color 0.3s;
-    border-radius: 5px;
-  }
-  .navbar a:hover {
-    color: rgb(255, 255, 255);
-  }
-  .navbar a.active {
-    background-color: red;
-    color: #ffffff;
-  }
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 5px;
+}
+
+/* коли наводишся — текст червоний */
+.navbar a:hover {
+  color: red;
+}
+
+/* активна сторінка — фон червоний, текст білий */
+.navbar a.active {
+  background-color: red;
+  color: #ffffff;
+}
+
   main {
     padding-top: 10px;
   }
