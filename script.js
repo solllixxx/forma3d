@@ -170,3 +170,26 @@ function acceptCookies() {
 }
 
 document.addEventListener("DOMContentLoaded", checkCookieConsent);
+
+  document.querySelectorAll('.navbar a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Перевіряємо, чи це посилання на секцію
+      if (this.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          // Плавно прокручуємо до секції
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Якщо меню бургер було відкрито — закриваємо
+          const navbar = document.querySelector('.navbar');
+          const burger = document.querySelector('.burger');
+          if (navbar.classList.contains('active')) {
+            navbar.classList.remove('active');
+            burger.classList.remove('active');
+          }
+        }
+      }
+    });
+  });

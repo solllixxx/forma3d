@@ -9,6 +9,11 @@
     color: #fff;
     min-height: 100vh;
   }
+
+  html {
+  scroll-behavior: smooth; /* плавне прокручування */
+}
+
   header {
     display: flex;
     justify-content: space-between;
