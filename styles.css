@@ -483,6 +483,21 @@ footer {
   }
 }
 
+/* Лінії зверху і знизу бургер-меню */
+.navbar.active {
+  display: flex;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: #111;
+  padding: 20px 0;
+  z-index: 1001;
+  border-top: 2px solid red;    /* червона лінія зверху */
+  border-bottom: 2px solid red; /* червона лінія знизу */
+  animation: menuFade 0.3s ease;
+}
+
 /* COOKIE BANNER */
 .cookie-banner {
   position: fixed;
@@ -620,3 +635,5 @@ footer {
 .button:hover {
   background-color: darkred;
 }
+
+
