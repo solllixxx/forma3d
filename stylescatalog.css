@@ -311,18 +311,6 @@ footer {
   color: gray;
 }
 
-/* === Анімація для кнопки "В обране" === */
-#favoritesIcon {
-  position: relative;
-  cursor: pointer;
-  color: red;
-  transition: transform 0.7s ease, color 0.7s ease, text-shadow 0.7s ease;
-  user-select: none;
-}
-
-#favoritesIcon:hover {
-  color: darkred;
-}
 /* === ЄДИНИЙ СТИЛЬ ДЛЯ ВСІХ КНОПОК === */
 button,
 .buy-btn,
