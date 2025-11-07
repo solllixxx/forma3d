@@ -174,7 +174,7 @@
     width: 100%;
     padding: 8px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     margin-bottom: 10px;
   }
   
@@ -184,8 +184,13 @@
     background: #444;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
+        transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
+  }
+
+  .contact-content button:hover {
+    transform: scale(1.1);
   }
   @media (max-width: 768px) {
     .horizontal-contact {
@@ -323,12 +328,13 @@ header a:hover {
 .buy-button {
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: not-allowed;
   background: gray;
   color: white;
   transition: 0.3s;
+    transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
 }
 
 .buy-button.active {
@@ -385,6 +391,7 @@ header a:hover {
   transition: all 0.3s ease;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
   backdrop-filter: blur(4px);
+    transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
 }
 
 .arrow:hover:not(:disabled) {
