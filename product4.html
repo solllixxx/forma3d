@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000"
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Брелок у формі середнього пальця</title>
+  <link rel="icon" href="image/logo.webp" type="image/png">
+  <link rel="stylesheet" href="stylesproduct.css" />
+</head>
+<div class="contact-overlay" id="contactOverlay" onclick="closeContact()"></div>
+<div class="horizontal-contact" id="horizontalContact" onclick="openContact()">
+  Зв'язок
+</div>
+<div class="contact-bar" id="contactBar">
+  <div class="contact-content">
+    <div class="contact-header">
+      <span>Зв'язок</span>
+      <span class="close-btn" onclick="closeContact()">✖</span>
+    </div>
+    
+    <label>Email:</label>
+    <input type="email" id="email" value="zippoziga32@gmail.com" readonly />
+    
+    <label>Повідомлення:</label>
+    <textarea id="message" placeholder="Введіть ваше повідомлення..."></textarea>
+    
+    <button onclick="sendMail()">Відправити</button>      
+  </div>
+</div>
+<body>
+  <header>
+    <div class="logo">Форма3D</div>
+    <a href="catalog.html" class="back-link">← До каталогу</a>
+  </header>
+  
+  <main>
+    <section class="section">
+      <div class="content-wrapper">
+        <div class="product-info">
+<div class="product-image">
+  <div class="carousel" id="productCarousel">
+    <button class="arrow left" id="prevBtn">&#10094;</button>
+
+    <img src="image/finger.jpg" class="active" alt="Брелок у формі середнього пальця">
+        <img src="image/finger 2.jpg" class="active" alt="Брелок у формі середнього пальця">
+            <img src="image/finger 3.jpg" class="active" alt="Брелок у формі середнього пальця">
+                <img src="image/finger 4.jpg" class="active" alt="Брелок у формі середнього пальця">
+                    <img src="image/finger 5.jpg" class="active" alt="Брелок у формі середнього пальця">
+                        <img src="image/finger 6.jpg" class="active" alt="Брелок у формі середнього пальця">
+
+    <button class="arrow right" id="nextBtn">&#10095;</button>
+  </div>
+</div>
+          <div class="product-details">
+            <h1>Брелок у формі середнього пальця</h1>
+            <p>• Опис:
+                Цей незвичний брелок — це аксесуар з характером, який точно приверне увагу. Він виготовлений з високоякісного матеріалу, що забезпечує довговічність, а його гумористичний дизайн і сміливе зображення середнього пальця робить його справжнім акцентом серед інших аксесуарів. Такий брелок стане ідеальним для тих, хто не боїться виразити свою індивідуальність.</p>
+              <p>• Кому підходить:
+
+                Для любителів незвичайних і оригінальних аксесуарів.
+            
+                Ідеально підходить для молоді та тих, хто любить гумор.
+            
+                Подарунок для друзів або колег, які мають почуття гумору.</p>
+            <p>Ціна: 50 ГРН</p>
+<!-- Кружечки для вибору кольору -->
+<div class="color-options">
+  <div class="color-circle" style="background:red;" data-color="червоний"></div>
+  <div class="color-circle" style="background:yellow;" data-color="жовтий"></div>
+  <div class="color-circle" style="background:blue;" data-color="синій"></div>
+  <div class="color-circle" style="background:green;" data-color="зелений"></div>
+  <div class="color-circle" style="background:black;" data-color="чорний"></div>
+  <div class="color-circle" style="background:white; border:1px solid #ccc;" data-color="білий"></div>
+</div>
+
+<!-- Кнопка -->
+<a id="buyLink" href="https://t.me/zippoziga">
+  <button id="buyButton" class="buy-button" disabled>До сплати</button>
+</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div id="footer" class="footer-content">
+      <p>@ Пошта: <a href="mailto:zippoziga32@gmail.com">zippoziga32@gmail.com</a></p>
+      <p>
+        ✆ Телефон:
+        <a href="tel:0677772819">0677772819</a> |
+        <a href="tel:0737772821">0737772821</a>
+      </p>
+      <p>✈ Telegram: <a href="https://t.me/zippoziga">@zippoziga</a></p>
+      <p>✎ Маєш ідеї? <a href="https://forms.gle/ZAtcrnYGYUspi13p6">Залишити відгук</a></p>
+      <p>✓ Умови <a href="privacy.html">Політика конфіденційності</a></p>
+    </div>
+  </footer>
+
+    <script>
+  const carousel = document.getElementById('productCarousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateCarousel();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < images.length - 1) currentIndex++;
+    updateCarousel();
+  });
+
+  // Якщо лише одне фото
+  if (images.length === 1) {
+    carousel.classList.add('single');
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  updateCarousel();
+</script>
+
+    <script>
+    const circles = document.querySelectorAll('.color-circle');
+    const buyButton = document.getElementById('buyButton');
+    const buyLink = document.getElementById('buyLink');
+
+    circles.forEach(circle => {
+      circle.addEventListener('click', () => {
+        // зняти виділення з усіх
+        circles.forEach(c => c.classList.remove('selected'));
+        // виділити обраний
+        circle.classList.add('selected');
+        // активувати кнопку
+        buyButton.classList.add('active');
+        buyButton.disabled = false;
+      });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
