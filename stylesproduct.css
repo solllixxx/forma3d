@@ -16,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #000;
-    padding: 20px 40px;
+    padding: 12px 40px;
     border-bottom: 2px solid red;
     position: fixed;
     top: 0;
@@ -191,6 +191,7 @@
 
   .contact-content button:hover {
     transform: scale(1.1);
+    background-color: darkred;
   }
   @media (max-width: 768px) {
     .horizontal-contact {
@@ -273,14 +274,19 @@
 
 /* Стрілка повернутися на телефоні і ПК */
   header a {
-  color: #fff;         
-  text-decoration: none;
   font-size: 16px;
-  transition: color 0.3s;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 10px;
+  background: red;
+    padding: 10px 10px;
+      transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
 }
 
 header a:hover {
-  color: red;         
+  background-color: darkred;       /* темно-червоний фон */
+  color: #fff;                     /* зірка стає білою */
+  transform: scale(1.1);       
 }
 
 /* І для самого класу back-link лишаємо white-space */
@@ -288,20 +294,9 @@ header a:hover {
   white-space: nowrap;
 }
 
-/* Для мобільних екранів прибираємо текст, лишаємо лише стрілочку */
-@media (max-width: 600px) {
-  .back-link {
-    font-size: 24px;
-    position: relative;
-    width: 1ch;
-    overflow: hidden;
-    display: inline-block;
-  }
-}
-
 /* збільшує відстань між лого та стрілкою */
 .back-link {
-  margin-left: 100px; 
+  margin-left: 70px; 
 }
 
 /* COLOR PRODUCT */
@@ -378,12 +373,11 @@ header a:hover {
   transform: translateY(-50%);
   font-size: 26px;
   color: #fff;
-  background: rgba(255, 0, 0, 0.25);
-  border: 1px solid rgba(255, 0, 0, 0.7);
+  background: rgb(255, 0, 0);
   cursor: pointer;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  border-radius: 10px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,7 +389,7 @@ header a:hover {
 }
 
 .arrow:hover:not(:disabled) {
-  background: red;
+  background: darkred;
   transform: translateY(-50%) scale(1.1);
 }
 

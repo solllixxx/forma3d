@@ -36,23 +36,40 @@ header .logo {
   color: red;
 }
 
-/* Зірочка улюблених */
+/* === Favorites Button === */
 #favoritesIcon {
-  position: relative;
+  background-color: red;           /* основний фон */
+  border-radius: 10px;             /* заокруглення */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 34px;
-  color: red;
+  color: #ffffff;                     /* колір зірки */
   cursor: pointer;
+  transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  padding-bottom: 5px;
+}
+
+/* Наведення */
+#favoritesIcon:hover {
+  background-color: darkred;       /* темно-червоний фон */
+  color: #fff;                     /* зірка стає білою */
+  transform: scale(1.1);
 }
 
 #favoritesCount {
   position: absolute;
   top: -3px;
   right: -8px;
-  background: red;
+  background-color: red;
   color: white;
   border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
+  padding: 1px 6px;
+  font-size: 14px;
   display: none; /* показувати, коли >0 */
   user-select: none;
 }
@@ -60,13 +77,19 @@ header .logo {
 /* Стрілка "На головну" завжди справа */
 .back-link {
   font-size: 16px;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s;
+  border-radius: 10px;
+  background: red;
+    padding: 10px 10px;
+      transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
 }
 
 .back-link:hover {
-  color: red;
+  background-color: darkred;       /* темно-червоний фон */
+  color: #fff;                     /* зірка стає білою */
+  transform: scale(1.1);
 }
 
 /* Адаптив для мобільних */
@@ -186,6 +209,12 @@ header .logo {
     border-radius: 10px;
     cursor: pointer;
   }
+
+    .contact-content button:hover {
+    transform: scale(1.1);
+    background-color: darkred;
+  }
+  
   @media (max-width: 768px) {
     .horizontal-contact {
       padding: 18px 8px;
@@ -286,30 +315,40 @@ footer {
   margin-top: 10px;
 }
 
+/* === Оновлений стиль для зірки "Додати в обране" (як у хедері) === */
 .star-icon {
-  font-size: 40px;
-  color: gray;
+  background-color: red;
+  color: #fff;
+  font-size: 34px;
+  border-radius: 10px;
+  width: 39px;
+  height: 39px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  user-select: none;
-  transition: color 0.3s ease, transform 0.2s ease;
-  line-height: 1;
-  margin-top: -6px;
+  transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  padding-bottom: 3px;
 }
 
-/* Наведення — зірка стає червонішою */
+/* Hover — той самий ефект, що в header */
 .star-icon:hover {
-  color: red;
+  background-color: darkred;
+  transform: scale(1.1);
 }
 
-/* Активна (додана в улюблені) */
+/* Активна (вже додана в улюблені) */
 .star-icon.active {
-  color: red;
+  background-color: darkred;
 }
 
-/* При кліку знову стає сірою (видалена з улюбленого) */
+/* Hover для активної — плавне повернення */
 .star-icon.active:hover {
-  color: gray;
+  background-color: red;
+  transform: scale(1.1);
 }
+
 
 /* === ЄДИНИЙ СТИЛЬ ДЛЯ ВСІХ КНОПОК === */
 button,

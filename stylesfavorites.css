@@ -24,7 +24,7 @@ header {
   align-items: center;
   justify-content: space-between; /* логотип + зірочка зліва, стрілка справа */
   background-color: #000;
-  padding: 20px 40px;
+  padding: 12px 40px;
   border-bottom: 2px solid red;
   position: fixed;
   top: 0;
@@ -48,13 +48,19 @@ header .logo {
 /* Стрілка */
 .back-link {
   font-size: 16px;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s;
+  border-radius: 10px;
+  background: red;
+    padding: 10px 10px;
+      transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease;
 }
 
 .back-link:hover {
-  color: red;
+  background-color: darkred;       /* темно-червоний фон */
+  color: #fff;                     /* зірка стає білою */
+  transform: scale(1.1);
 }
 
 /* Адаптив для мобільних */
@@ -168,30 +174,49 @@ h1 {
   gap: 15px;
 }
 
-/* Іконка зірки */
+/* === Оновлений стиль для зірки "Додати в обране" === */
 .star-icon {
-  font-size: 40px;
-  color: gray;
+  background-color: red;
+  color: #fff;
+  font-size: 30px;
+  border-radius: 10px;
+  width: 39px;
+  height: 39px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   user-select: none;
-  transition: color 0.3s;
-  line-height: 1;
-  margin-top: -6px; /* трохи підняти зірочку */
+  transition: transform 0.7s ease, background-color 0.7s ease, box-shadow 0.7s ease, color 0.7s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding-bottom: 3px;
 }
 
+/* Ефект при наведенні — як у зірки в header */
 .star-icon:hover {
-  color: red;
+  background-color: darkred;
+  color: #fff;
+  transform: scale(1.1);
 }
 
-.star-icon.active, .star-icon:hover {
-  color: red;
+/* Активна (в улюбленому) */
+.star-icon.active {
+  background-color: darkred;
+  color: #fff;
 }
 
+/* Hover для активної — м’який зворотний ефект */
+.star-icon.active:hover {
+  background-color: red;
+  transform: scale(1.1);
+}
+
+/* Повідомлення про відсутність улюблених */
 #noFavoritesMsg {
   text-align: right; /* вирівнювання по правому краю */
   width: 100%;       /* щоб текст займав всю ширину батьківського контейнера */
   font-size: 20px;
-  color: #bbb;
+  color: #ffffff;
   margin: 0px 0;
 }
 
