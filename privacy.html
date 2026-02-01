@@ -16,7 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050505;
+      --bg: #131313;
       --card-bg: #111113;
       --accent: #ffffff;
       --text-gray: #a1a1aa;
@@ -38,7 +38,7 @@
       overflow-x: hidden;
     }
 
-    /* === ЕФЕКТНИЙ ХЕДЕР === */
+    /* === ХЕДЕР === */
     header {
       position: fixed;
       top: -100px;
@@ -175,7 +175,7 @@
       transition: 0.3s;
     }
 
-    /* === ОНОВЛЕНИЙ ФУТЕР === */
+    /* === ФУТЕР === */
     footer {
       padding: 100px 40px 60px;
       border-top: 1px solid var(--border);
@@ -233,7 +233,7 @@
       font-size: 13px;
     }
 
-    /* Стиль для посилання розробника */
+    /* Стиль для посилання розробника (solix) */
     .developer-link {
       color: #444; /* Колір як у всього тексту знизу */
       text-decoration: underline;
@@ -273,10 +273,30 @@
       width: 100%; padding: 16px; background: white; color: black; border: none; border-radius: 12px;
       font-weight: 700; cursor: pointer;
     }
+
+/* Стиль для порожнього поля з помилкою */
+.contact-content textarea.pomylka {
+    border: 1px solid #ff4d4d !important;
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+    animation: traska 0.3s ease-in-out;
+}
+
+/* Анімація трясіння */
+@keyframes traska {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Колір тексту підказки при помилці */
+.contact-content textarea.pomylka::placeholder {
+    color: #ff4d4d;
+}
   </style>
 </head>
 <body>
 
+<!-- Кнопка зв'язку -->
 <div class="contact-overlay" id="contactOverlay" onclick="closeContact()"></div>
 <div class="horizontal-contact" id="horizontalContact" onclick="openContact()">Зв'язок</div>
 
@@ -287,18 +307,20 @@
       <span style="cursor:pointer" onclick="closeContact()">✖</span>
     </div>
     <label style="font-size: 12px; color: var(--text-gray);">Email:</label>
-    <input type="email" id="email" value="zippoziga32@gmail.com" readonly />
+    <input type="email" id="email" value="forma3d.info.ua@gmail.com" readonly />
     <label style="font-size: 12px; color: var(--text-gray);">Повідомлення:</label>
     <textarea id="message" placeholder="Введіть ваше повідомлення..."></textarea>
     <button onclick="sendMail()">Відправити</button>      
   </div>
 </div>
 
+<!-- Хедер -->
 <header id="navbar">
   <div class="logo">FORMA3D</div>
-  <a href="index.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
+  <a href="home.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
 </header>
 
+<!-- Секція 1 -->
 <section class="hero show" id="home">
   <h1>Політика конфіденційності.</h1>
   <h3>Ми поважаємо вашу приватність і прагнемо захищати ваші персональні дані. Вся інформація, яку ви надаєте (наприклад, номер телефону), використовується виключно для обробки вашого замовлення і зв’язку з вами. Ми не передаємо ваші дані третім особам без вашої згоди, за винятком випадків, передбачених законодавством. Ви маєте право запросити видалення або зміну ваших персональних даних, звернувшись до нас.</h3>
@@ -312,6 +334,7 @@
 <h3>Оплата здійснюється через банківський переказ за посиланням, що відкривається після натискання кнопки “Купити”. Доставка здійснюється службами Нової пошти або Укрпошти, а також можливий самовивіз за домовленістю. Термін виготовлення: від 2 до 7 робочих днів залежно від складності замовлення.</h3>
 </section>
 
+<!-- Футер -->
 <footer>
   <div class="footer-container">
     <div class="footer-header">
@@ -323,7 +346,7 @@
 
       <div class="footer-col">
         <h4>Контакти</h4>
-        <a href="mailto:zippoziga32@gmail.com">Пошта: zippoziga32@gmail.com</a>
+        <a href="javascript:void(0)" onclick="sendMailDirect('forma3d.info.ua@gmail.com')">Пошта: forma3d.info.ua@gmail.com</a>
         <a href="tel:0677772819">Телефон: 0677772819</a>
         <a href="https://t.me/zippoziga">Telegram: @zippoziga</a>
       </div>
@@ -343,14 +366,18 @@
 
 <div class="footer-bottom">
   <p>© 2024 – <span id="current-year"></span> Forma3D Studio була заснована власником Дмитро Орлов (Zippoziga).</p>
-  <p>
-    <a href="mailto:zazhytskyi1@gmail.com" class="developer-link">Розробник сайту Зажицький Ярослав (solix).</a>
-  </p>
+<p>
+  <a href="javascript:void(0)" 
+     onclick="sendMailDirect('zazhytskyi1@gmail.com', 'Розробка сайту')" 
+     class="developer-link">
+     Розробник сайту Зажицький Ярослав (solix).
+  </a>
+</p>
   <p>Ukraine</p>
 </div>
 
 <script>
-  // Автоматическое обновление текущего года
+  // Автоматичне оновлення поточного року у футері
   document.getElementById("current-year").textContent = new Date().getFullYear();
 </script>
 </footer>
@@ -395,36 +422,83 @@
   }
 
 function sendMail() {
-    const email = document.getElementById("email").value;
-    const message = document.getElementById("message").value;
+    const poshta = "forma3d.info.ua@gmail.com"; // Ваша пошта
+    const polePovidomlennya = document.getElementById("message");
+    const tekstPovidomlennya = polePovidomlennya.value.trim();
     
-    if(!message) { 
-      alert("Будь ласка, введіть повідомлення"); 
-      return; 
+    // 1. ПЕРЕВІРКА: Якщо повідомлення порожнє
+    if (!tekstPovidomlennya) { 
+        polePovidomlennya.classList.add("pomylka");
+        polePovidomlennya.placeholder = "Будь ласка, введіть текст...";
+        
+        // Прибираємо ефект помилки через 1.5 секунди
+        setTimeout(() => {
+            polePovidomlennya.classList.remove("pomylka");
+        }, 1500);
+        return; 
     }
 
-    const subject = "Замовлення Forma3D";
-    const body = encodeURIComponent(message);
-    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+    // 2. ПІДГОТОВКА ДАНИХ
+    const temaLista = encodeURIComponent("Замовлення Forma3D");
+    const tekstEncoded = encodeURIComponent(tekstPovidomlennya);
 
-    // Спробуємо відкрити стандартну пошту
-    const startTime = Date.now();
-    window.location.href = mailtoUrl;
+    // 3. ПЕРЕВІРКА ПЛАТФОРМИ (Windows чи інша)
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
 
-    // Перевіряємо через 2 секунди, чи залишився користувач на сторінці
-    setTimeout(() => {
-      if (Date.now() - startTime < 2500) {
-        if (confirm("Здається, поштовий додаток не встановлено. Відкрити Gmail у браузері?")) {
-          window.open(gmailUrl, '_blank');
-        } else {
-          // Якщо користувач відмовився, просто копіюємо email в буфер
-          navigator.clipboard.writeText(email);
-          alert("Email скопійовано в буфер обміну: " + email);
-        }
-      }
-    }, 2000);
-  }
+    // Посилання для веб-Gmail та звичайне mailto
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
+
+    // 4. ЛОГІКА ВІДКРИТТЯ
+    if (tseWindows) {
+        // Якщо Windows — відкриваємо Gmail у браузері (нова вкладка)
+        window.open(gmailUrl, '_blank');
+    } else {
+        // Якщо смартфон (Android/iOS) або Mac — відкриваємо поштовий додаток
+        window.location.href = mailtoUrl;
+    }
+
+    // Закриваємо бічну панель зв'язку
+    closeContact();
+}
+
+function sendMailDirect(email) {
+    const temaLista = encodeURIComponent("Питання щодо Forma3D");
+    const tekstEncoded = encodeURIComponent("Вітаю! Мене цікавить...");
+
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
+
+    // Створюємо посилання
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
+
+    if (tseWindows) {
+        // Якщо Windows — відкриваємо Gmail у новій вкладці
+        window.open(gmailUrl, '_blank');
+    } else {
+        // Якщо телефон або Mac — відкриваємо поштовий додаток
+        window.location.href = mailtoUrl;
+    }
+}
+
+function sendMailDirect(email, subjectText = "Питання щодо Forma3D") {
+    const temaLista = encodeURIComponent(subjectText);
+    const tekstEncoded = encodeURIComponent("Вітаю! У мене є питання щодо...");
+
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
+
+    if (tseWindows) {
+        window.open(gmailUrl, '_blank');
+    } else {
+        window.location.href = mailtoUrl;
+    }
+}
 </script>
 
 </body>
