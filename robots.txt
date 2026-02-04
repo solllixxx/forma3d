@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://solllixxx.github.io/forma3d/sitemap.xml
