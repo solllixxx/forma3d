@@ -37,6 +37,7 @@
       --text-gray: #a1a1aa;
       --border: rgba(255, 255, 255, 0.1);
       --header-h: 80px;
+      scroll-behavior: smooth;
     }
 
     * {
@@ -412,7 +413,7 @@
   <div class="contact-content">
     <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 22px; font-weight: 800;">
       <span>Зв'язок</span>
-      <span style="cursor:pointer" onclick="closeContact()">✖</span>
+      <span style="cursor:pointer; color: white;" onclick="closeContact()">✖</span>
     </div>
     <label style="font-size: 12px; color: var(--text-gray);">Email:</label>
     <input type="email" id="email" value="forma3d.info.ua@gmail.com" readonly />
@@ -445,7 +446,7 @@
 <header id="navbar">
   <div class="logo">FORMA3D</div>
   <nav>
-    <a href="#home">Початок</a>
+    <a href="#home">Головна</a>
     <a href="#services">Сервіс</a>
     <a href="#pricing">Ціни</a>
     <a href="#contact">Контакти</a>

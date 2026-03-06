@@ -31,6 +31,7 @@
       --text-gray: #a1a1aa;
       --border: rgba(255, 255, 255, 0.1);
       --header-h: 80px;
+      scroll-behavior: smooth;
     }
 
     * {
@@ -80,12 +81,8 @@
       padding: 100px 20px;
       max-width: 1100px;
       margin: 0 auto;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
     }
 
-    section.show { opacity: 1; transform: translateY(0); }
 
     .hero {
       text-align: center;
@@ -424,7 +421,7 @@
   <div class="contact-content">
     <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 22px; font-weight: 800;">
       <span>Зв'язок</span>
-      <span style="cursor:pointer" onclick="closeContact()">✖</span>
+      <span style="cursor:pointer; color: white;" onclick="closeContact()">✖</span>
     </div>
     <label style="font-size: 12px; color: var(--text-gray);">Email:</label>
     <input type="email" id="email" value="forma3d.info.ua@gmail.com" readonly />
@@ -447,9 +444,13 @@
         <label>Ваш номер телефону:</label>
         <input type="tel" id="userPhone" maxlength="10" placeholder="0XXXXXXXXX">
 
+        <p style="font-size: 13px; color: rgb(221, 221, 221); margin-top: 20px; line-height: 1.4;">
+            Вибір кольору: адміністратор зателефонує вам для уточнення деталей.
+        </p>
+
         <input type="hidden" id="currentProductName" value="">
 
-        <button class="buy-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 30px;" onclick="validateAndSend()">ЗАМОВИТИ</button>
+        <button class="buy-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 15px;" onclick="validateAndSend()">ЗАМОВИТИ</button>
     </div>
 </div>
 
@@ -618,14 +619,7 @@
       header.classList.toggle('scrolled', currentScroll > 50);
     }
     lastScroll = currentScroll;
-
-    sections.forEach(sec => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.8) {
-        sec.classList.add('show');
-      }
     });
-  });
 
   function openContact() {
     document.getElementById("contactBar").classList.add("active");
