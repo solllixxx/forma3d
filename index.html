@@ -302,6 +302,7 @@
   box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: bottom 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.3s;
 }
 
 .call-button svg {
@@ -313,6 +314,74 @@
 .call-button:hover {
   transform: scale(1.1) rotate(15deg);
   background: #eee;
+}
+
+/* Робимо так, щоб кнопка зміщувалася ТІЛЬКИ на екранах менше 768px (планшети та телефони) */
+@media (max-width: 660px) {
+  .call-button.shifted {
+    bottom: 110px; /* Позиція над банером на мобільних */
+  }
+}
+
+/* На дуже маленьких телефонах піднімаємо ще вище, якщо банер стає у два рядки */
+@media (max-width: 480px) {
+  .call-button.shifted {
+    bottom: 160px;
+  }
+}
+
+
+/* Стиль підказки біля кнопки */
+.call-tooltip {
+  position: fixed;
+  bottom: 40px; /* Центруємо відносно кнопки */
+  left: 100px;
+  background: white;
+  color: black;
+  padding: 10px 18px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Стрілочка для підказки */
+.call-tooltip::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid white;
+}
+
+/* Коли підказка активна */
+.call-tooltip.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Адаптація підняття разом із кнопкою (якщо є кукі) */
+.call-button.shifted + .call-tooltip {
+  bottom: 170px; /* Піднімається разом із кнопкою */
+}
+
+@media (max-width: 480px) {
+  .call-button.shifted + .call-tooltip {
+    bottom: 230px;
+  }
+  .call-tooltip {
+    font-size: 12px;
+    left: 85px;
+  }
 }
 
 /* === КУКІ-БАНЕР === */
@@ -442,6 +511,8 @@
   </svg>
 </a>
 
+<div class="call-tooltip" id="callTooltip">Подзвоніть нам для уточнення замовлення!</div>
+
 <!-- Хедер -->
 <header id="navbar">
   <div class="logo">FORMA3D</div>
@@ -564,150 +635,157 @@
 
 <!-- Скрипт (логіка) -->
 <script>
-  const header = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section');
-  let lastScroll = 0;
+  // Автоматичне оновлення поточного року у футері
+  document.getElementById("current-year").textContent = new Date().getFullYear();
 
-  window.addEventListener('load', () => {
-    setTimeout(() => { header.classList.add('visible'); }, 300);
-  });
+  const header = document.getElementById('navbar');
+  const sections = document.querySelectorAll('section');
+  const callBtn = document.getElementById('callButton'); // Додано для контролю кнопки
+  let lastScroll = 0;
 
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > lastScroll && currentScroll > 100) {
-      header.style.top = "-100px";
-    } else {
-      header.style.top = currentScroll > 50 ? "10px" : "20px";
-      header.classList.toggle('scrolled', currentScroll > 50);
-    }
-    lastScroll = currentScroll;
+  window.addEventListener('load', () => {
+    setTimeout(() => { header.classList.add('visible'); }, 300);
+  });
 
-    sections.forEach(sec => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.8) {
-        sec.classList.add('show');
-      }
-    });
-  });
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    if (currentScroll > lastScroll && currentScroll > 100) {
+      header.style.top = "-100px";
+    } else {
+      header.style.top = currentScroll > 50 ? "10px" : "20px";
+      header.classList.toggle('scrolled', currentScroll > 50);
+    }
+    lastScroll = currentScroll;
 
-  function openContact() {
-    document.getElementById("contactBar").classList.add("active");
-    document.getElementById("contactOverlay").classList.add("active");
-    document.getElementById("horizontalContact").style.opacity = "0";
-  }
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8) {
+        sec.classList.add('show');
+      }
+    });
+  });
 
-  function closeContact() {
-    document.getElementById("contactBar").classList.remove("active");
-    document.getElementById("contactOverlay").classList.remove("active");
-    setTimeout(() => { document.getElementById("horizontalContact").style.opacity = "1"; }, 400);
-  }
+  function openContact() {
+    document.getElementById("contactBar").classList.add("active");
+    document.getElementById("contactOverlay").classList.add("active");
+    document.getElementById("horizontalContact").style.opacity = "0";
+  }
+
+  function closeContact() {
+    document.getElementById("contactBar").classList.remove("active");
+    document.getElementById("contactOverlay").classList.remove("active");
+    setTimeout(() => { document.getElementById("horizontalContact").style.opacity = "1"; }, 400);
+  }
 
 function sendMail() {
-    const poshta = "forma3d.info.ua@gmail.com"; // Ваша пошта
-    const polePovidomlennya = document.getElementById("message");
-    const tekstPovidomlennya = polePovidomlennya.value.trim();
-    
-    // 1. ПЕРЕВІРКА: Якщо повідомлення порожнє
-    if (!tekstPovidomlennya) { 
-        polePovidomlennya.classList.add("pomylka");
-        polePovidomlennya.placeholder = "Введіть ваше повідомлення...";
-        
-        // Прибираємо ефект помилки через 1.5 секунди
-        setTimeout(() => {
-            polePovidomlennya.classList.remove("pomylka");
-        }, 1500);
-        return; 
-    }
+    const poshta = "forma3d.info.ua@gmail.com"; // Ваша пошта
+    const polePovidomlennya = document.getElementById("message");
+    const tekstPovidomlennya = polePovidomlennya.value.trim();
+    
+    // 1. ПЕРЕВІРКА: Якщо повідомлення порожнє
+    if (!tekstPovidomlennya) { 
+        polePovidomlennya.classList.add("pomylka");
+        polePovidomlennya.placeholder = "Введіть ваше повідомлення...";
+        
+        // Прибираємо ефект помилки через 1.5 секунди
+        setTimeout(() => {
+            polePovidomlennya.classList.remove("pomylka");
+        }, 1500);
+        return; 
+    }
 
-    // 2. ПІДГОТОВКА ДАНИХ
-    const temaLista = encodeURIComponent("Замовлення Forma3D");
-    const tekstEncoded = encodeURIComponent(tekstPovidomlennya);
+    // 2. ПІДГОТОВКА ДАНИХ
+    const temaLista = encodeURIComponent("Замовлення Forma3D");
+    const tekstEncoded = encodeURIComponent(tekstPovidomlennya);
 
-    // 3. ПЕРЕВІРКА ПЛАТФОРМИ (Windows чи інша)
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
+    // 3. ПЕРЕВІРКА ПЛАТФОРМИ (Windows чи інша)
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
 
-    // Посилання для веб-Gmail та звичайне mailto
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
+    // Посилання для веб-Gmail та звичайне mailto
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
 
-    // 4. ЛОГІКА ВІДКРИТТЯ
-    if (tseWindows) {
-        // Якщо Windows — відкриваємо Gmail у браузері (нова вкладка)
-        window.open(gmailUrl, '_blank');
-    } else {
-        // Якщо смартфон (Android/iOS) або Mac — відкриваємо поштовий додаток
-        window.location.href = mailtoUrl;
-    }
+    // 4. ЛОГІКА ВІДКРИТТЯ
+    if (tseWindows) {
+        // Якщо Windows — відкриваємо Gmail у браузері (нова вкладка)
+        window.open(gmailUrl, '_blank');
+    } else {
+        // Якщо смартфон (Android/iOS) або Mac — відкриваємо поштовий додаток
+        window.location.href = mailtoUrl;
+    }
 
-    // Закриваємо бічну панель зв'язку
-    closeContact();
+    // Закриваємо бічну панель зв'язку
+    closeContact();
 }
 
-  // Налаштування версії кукі
-  const COOKIE_VERSION = "1.1"; 
+  // Налаштування версії кукі
+  const COOKIE_VERSION = "1.0"; 
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const banner = document.getElementById('cookieBanner');
-    // Локальне збереження версії прийняття кукі
-    const savedVersion = localStorage.getItem('cookiesAcceptedVersion');
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookieBanner');
+    // Локальне збереження версії прийняття кукі
+    const savedVersion = localStorage.getItem('cookiesAcceptedVersion');
 
-    // Якщо версії немає АБО вона старіша за поточну — показує банер
-    if (banner && savedVersion !== COOKIE_VERSION) {
-      setTimeout(() => {
-        banner.classList.add('active');
-      }, 1500);
-    }
-  });
+    // Якщо версії немає АБО вона старіша за поточну — показує банер
+    if (banner && savedVersion !== COOKIE_VERSION) {
+      setTimeout(() => {
+        banner.classList.add('active');
+        // ПІДНІМАЄМО КНОПКУ, КОЛИ З'ЯВЛЯЄТЬСЯ БАНЕР
+        if (callBtn) callBtn.classList.add('shifted');
+      }, 1500);
+    }
+  });
 
-  function acceptCookies() {
-    const banner = document.getElementById('cookieBanner');
-    if (banner) {
-      banner.classList.remove('active');
-      // Зберігає саме поточну версію кукі-політики
-      localStorage.setItem('cookiesAcceptedVersion', COOKIE_VERSION);
-    }
-  }
+  function acceptCookies() {
+    const banner = document.getElementById('cookieBanner');
+    if (banner) {
+      banner.classList.remove('active');
+      // ОПУСКАЄМО КНОПКУ, КОЛИ БАНЕР ЗАКРИТО
+      if (callBtn) callBtn.classList.remove('shifted');
+      // Зберігає саме поточну версію кукі-політики
+      localStorage.setItem('cookiesAcceptedVersion', COOKIE_VERSION);
+    }
+  }
 
-  function sendMailDirect(email) {
-    const temaLista = encodeURIComponent("Питання щодо Forma3D");
-    const tekstEncoded = encodeURIComponent("Вітаю! Мене цікавить...");
+  function sendMailDirect(email) {
+    const temaLista = encodeURIComponent("Питання щодо Forma3D");
+    const tekstEncoded = encodeURIComponent("Вітаю! Мене цікавить...");
 
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
 
-    // Створюємо посилання
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
+    // Створюємо посилання
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
 
-    if (tseWindows) {
-        // Якщо Windows — відкриваємо Gmail у новій вкладці
-        window.open(gmailUrl, '_blank');
-    } else {
-        // Якщо телефон або Mac — відкриваємо поштовий додаток
-        window.location.href = mailtoUrl;
-    }
+    if (tseWindows) {
+        // Якщо Windows — відкриваємо Gmail у новій вкладці
+        window.open(gmailUrl, '_blank');
+    } else {
+        // Якщо телефон або Mac — відкриваємо поштовий додаток
+        window.location.href = mailtoUrl;
+    }
 }
 
 function sendMailDirect(email, subjectText = "Питання щодо Forma3D") {
-    const temaLista = encodeURIComponent(subjectText);
-    const tekstEncoded = encodeURIComponent("Вітаю! У мене є питання щодо...");
+    const temaLista = encodeURIComponent(subjectText);
+    const tekstEncoded = encodeURIComponent("Вітаю! У мене є питання щодо...");
 
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
+    const platforma = navigator.platform.toLowerCase();
+    const tseWindows = platforma.indexOf('win') !== -1;
 
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
+    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
 
-    if (tseWindows) {
-        window.open(gmailUrl, '_blank');
-    } else {
-        window.location.href = mailtoUrl;
-    }
+    if (tseWindows) {
+        window.open(gmailUrl, '_blank');
+    } else {
+        window.location.href = mailtoUrl;
+    }
 }
 </script>
 
 </body>
 
 </html>
-

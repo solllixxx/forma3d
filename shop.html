@@ -181,6 +181,22 @@
       transition: 0.3s;
     }
 
+    .card-empty {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      position: relative;
+      display: flex;
+      height: 100%;
+      min-height: 460px;
+    }
+
+    @media (max-width: 998px) {
+  .card-empty {
+    display: none; /* Или используй opacity: 0, если хочешь оставить отступ */
+  }
+}
+
     /* === ФУТЕР === */
     footer {
       padding: 100px 40px 60px;
@@ -410,6 +426,51 @@
     margin-bottom: 5px;
     font-weight: 600;
 }
+
+/* === ВИПРАВЛЕНИЙ СТИЛЬ ВИБОРУ КОЛЬОРУ === */
+.color-select {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 40px 12px 15px; /* Збільшений відступ справа для стрілки */
+    color: white;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Прибрали загальний 'all', щоб не рухати фон */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Фіксована стрілка */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center; /* Чітка позиція: 15px від правого краю */
+    background-size: 12px;
+    box-sizing: border-box; /* Важливо для правильних відступів */
+}
+
+.color-select:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Safari/Chrome */
+.color-select option {
+    background-color: #131313; 
+    color: white;
+}
+
+/* Стан помилки */
+.color-error {
+    border: 1px solid #ff4d4d !important;
+    box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+    animation: traska 0.3s ease-in-out;
+}
   </style>
 </head>
 <body>
@@ -445,7 +506,7 @@
         <input type="tel" id="userPhone" maxlength="10" placeholder="0XXXXXXXXX">
 
         <p style="font-size: 13px; color: rgb(221, 221, 221); margin-top: 20px; line-height: 1.4;">
-            Вибір кольору: адміністратор зателефонує вам для уточнення деталей.
+            Адміністратор зателефонує вам для уточнення деталей.
         </p>
 
         <input type="hidden" id="currentProductName" value="">
@@ -466,16 +527,33 @@
 <section id="services">
   <h2 style="font-size: 32px; margin-bottom: 40px;">Наші товари</h2>
   <div class="grid">
-    <div class="card">
-      <div class="card-image">
-        <img src="image/tovar 1.jpg" alt="Товар 1">
-      </div>
-      <div class="card-info">
-        <h3>3D Фігурка динозавр Діно Рекс</h3>
-        <p>50 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('3D Фігурка динозавр Діно Рекс')">КУПИТИ</a>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-image">
+    <img src="image/tovar 1.jpg" alt="Товар 1">
+  </div>
+  <div class="card-info">
+    <h3>3D Фігурка динозавр Діно Рекс</h3>
+    <p>50 ₴</p>
+    
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+    <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('3D Фігурка динозавр Діно Рекс', this)">КУПИТИ</a>
+  </div>
+</div>
     <div class="card">
       <div class="card-image">
         <img src="image/tovar 2.jpg" alt="Товар 2">
@@ -483,7 +561,24 @@
       <div class="card-info">
         <h3>Фігура кам’яного обличчя</h3>
         <p>150 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Фігура кам’яного обличчя')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Фігура кам’яного обличчя', this)">КУПИТИ</a>
       </div>
     </div>
     <div class="card">
@@ -493,7 +588,24 @@
       <div class="card-info">
         <h3>Підставка під телефон</h3>
         <p>120 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон', this)">КУПИТИ</a>
       </div>
     </div>
         <div class="card">
@@ -503,7 +615,24 @@
       <div class="card-info">
         <h3>Кейс для microSD-карт</h3>
         <p>100 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Кейс для microSD-карт')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Кейс для microSD-карт', this)">КУПИТИ</a>
       </div>
     </div>
         <div class="card">
@@ -513,7 +642,24 @@
       <div class="card-info">
         <h3>Тримач ременя</h3>
         <p>70 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Тримач ременя')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Тримач ременя', this)">КУПИТИ</a>
       </div>
     </div>
         <div class="card">
@@ -523,7 +669,24 @@
       <div class="card-info">
         <h3>Ручка для пакетів</h3>
         <p>200 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Ручка для пакетів')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Ручка для пакетів', this)">КУПИТИ</a>
       </div>
     </div>
         <div class="card">
@@ -533,7 +696,24 @@
       <div class="card-info">
         <h3>Заглушка на болт</h3>
         <p>50 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Заглушка на болт')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Заглушка на болт', this)">КУПИТИ</a>
       </div>
     </div>
         <div class="card">
@@ -543,11 +723,30 @@
       <div class="card-info">
         <h3>Підставка під телефон у формі серця UA</h3>
         <p>70 ₴</p>
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA')">КУПИТИ</a>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA', this)">КУПИТИ</a>
       </div>
     </div>
-            <div class="card">
-                  </div>
+            
+    <div class="card-empty">            
+            </div>
+
     </div>
   </div>
 </section>
@@ -602,107 +801,115 @@
 </footer>
 
 <script>
-  const header = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section');
-  let lastScroll = 0;
+// === ГЛОБАЛЬНІ ЗМІННІ ===
+const header = document.getElementById('navbar');
+const sections = document.querySelectorAll('section');
+let lastScroll = 0;
+let selectedColor = ""; // Зберігаємо обраний колір для замовлення
 
-  window.addEventListener('load', () => {
+// === ЛОГІКА ХЕДЕРА (Scroll & Load) ===
+window.addEventListener('load', () => {
     setTimeout(() => { header.classList.add('visible'); }, 300);
-  });
+});
 
-  window.addEventListener('scroll', () => {
+window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
     if (currentScroll > lastScroll && currentScroll > 100) {
-      header.style.top = "-100px";
+        header.style.top = "-100px";
     } else {
-      header.style.top = currentScroll > 50 ? "10px" : "20px";
-      header.classList.toggle('scrolled', currentScroll > 50);
+        header.style.top = currentScroll > 50 ? "10px" : "20px";
+        header.classList.toggle('scrolled', currentScroll > 50);
     }
     lastScroll = currentScroll;
-    });
+});
 
-  function openContact() {
+// === БІЧНА ПАНЕЛЬ ЗВ'ЯЗКУ ===
+function openContact() {
     document.getElementById("contactBar").classList.add("active");
     document.getElementById("contactOverlay").classList.add("active");
     document.getElementById("horizontalContact").style.opacity = "0";
-  }
+}
 
-  function closeContact() {
+function closeContact() {
     document.getElementById("contactBar").classList.remove("active");
     document.getElementById("contactOverlay").classList.remove("active");
     setTimeout(() => { document.getElementById("horizontalContact").style.opacity = "1"; }, 400);
-  }
+}
 
+// Відправка повідомлення з бічної панелі
 function sendMail() {
-    const poshta = "forma3d.info.ua@gmail.com"; // Ваша пошта
+    const poshta = "forma3d.info.ua@gmail.com";
     const polePovidomlennya = document.getElementById("message");
     const tekstPovidomlennya = polePovidomlennya.value.trim();
     
-    // 1. ПЕРЕВІРКА: Якщо повідомлення порожнє
     if (!tekstPovidomlennya) { 
         polePovidomlennya.classList.add("pomylka");
         polePovidomlennya.placeholder = "Будь ласка, введіть текст...";
-        
-        // Прибираємо ефект помилки через 1.5 секунди
-        setTimeout(() => {
-            polePovidomlennya.classList.remove("pomylka");
-        }, 1500);
+        setTimeout(() => { polePovidomlennya.classList.remove("pomylka"); }, 1500);
         return; 
     }
 
-    // 2. ПІДГОТОВКА ДАНИХ
-    const temaLista = encodeURIComponent("Замовлення Forma3D");
+    const temaLista = encodeURIComponent("Запитання Forma3D");
     const tekstEncoded = encodeURIComponent(tekstPovidomlennya);
+    const isWindows = navigator.platform.toLowerCase().includes('win');
 
-    // 3. ПЕРЕВІРКА ПЛАТФОРМИ (Windows чи інша)
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
-
-    // Посилання для веб-Gmail та звичайне mailto
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
-
-    // 4. ЛОГІКА ВІДКРИТТЯ
-    if (tseWindows) {
-        // Якщо Windows — відкриваємо Gmail у браузері (нова вкладка)
-        window.open(gmailUrl, '_blank');
+    if (isWindows) {
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`, '_blank');
     } else {
-        // Якщо смартфон (Android/iOS) або Mac — відкриваємо поштовий додаток
-        window.location.href = mailtoUrl;
+        window.location.href = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
     }
-
-    // Закриваємо бічну панель зв'язку
     closeContact();
 }
 
-// 1. Блокування введення літер у телефон
+// === МОДАЛЬНЕ ВІКНО ЗАМОВЛЕННЯ ТА ВИБІР КОЛЬОРУ ===
+
+// Блокування введення літер у поле телефону (тільки цифри)
 document.getElementById('userPhone').addEventListener('input', function (e) {
     e.target.value = e.target.value.replace(/\D/g, ''); 
 });
 
-// 2. Відкриття модалки
-function openOrderModal(productName) {
+/**
+ * Відкриття модалки з перевіркою кольору
+ * @param {string} productName - назва товару
+ * @param {HTMLElement} btn - посилання на кнопку (this)
+ */
+function openOrderModal(productName, btn) {
+    // Шукаємо випадаючий список кольору в тій же картці (parent .card-info)
+    const cardInfo = btn.closest('.card-info');
+    const colorSelect = cardInfo.querySelector('.color-select');
+    
+    // Перевірка: чи обрано значення
+    if (!colorSelect.value) {
+        colorSelect.classList.add("color-error"); // Додаємо червону рамку і трясіння
+        setTimeout(() => {
+            colorSelect.classList.remove("color-error");
+        }, 1500);
+        return; // Перериваємо функцію, модалка не відкриється
+    }
+
+    // Якщо колір обрано
+    selectedColor = colorSelect.value;
     const modal = document.getElementById("orderModal");
+    
     document.getElementById("currentProductName").value = productName;
-    document.getElementById("selectedProductTitle").innerText = productName;
+    document.getElementById("selectedProductTitle").innerText = `${productName} (${selectedColor})`;
+    
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
 }
 
-// 3. Закриття модалки
 function closeOrderModal() {
     const modal = document.getElementById("orderModal");
     modal.style.display = "none";
     document.body.style.overflow = "auto";
-    document.getElementById("userPhone").value = ""; // Очищуємо поле
+    document.getElementById("userPhone").value = ""; 
 }
 
-// 4. Закриття при кліку на фон
 function handleOutsideClick(event) {
     if (event.target.id === "orderModal") closeOrderModal();
 }
 
-// 5. Валідація та відправка
+// Валідація телефону та фінальна відправка на пошту
 function validateAndSend() {
     const phoneInput = document.getElementById("userPhone");
     const phone = phoneInput.value.trim();
@@ -723,7 +930,7 @@ function validateAndSend() {
 
     const targetEmail = "forma3d.info.ua@gmail.com";
     const subject = encodeURIComponent(`Замовлення: ${productName}`);
-    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\nТовар: ${productName}\nТелефон: ${phone}`;
+    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\nТовар: ${productName}\nКолір: ${selectedColor}\nТелефон: ${phone}`;
     const bodyEncoded = encodeURIComponent(bodyText);
 
     const isWindows = navigator.platform.toLowerCase().includes('win');
@@ -736,42 +943,26 @@ function validateAndSend() {
     closeOrderModal();
 }
 
-function sendMailDirect(email) {
-    const temaLista = encodeURIComponent("Питання щодо Forma3D");
-    const tekstEncoded = encodeURIComponent("Вітаю! Мене цікавить...");
+// === ДОПОМІЖНІ ФУНКЦІЇ ===
 
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
-
-    // Створюємо посилання
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
-
-    if (tseWindows) {
-        // Якщо Windows — відкриваємо Gmail у новій вкладці
-        window.open(gmailUrl, '_blank');
-    } else {
-        // Якщо телефон або Mac — відкриваємо поштовий додаток
-        window.location.href = mailtoUrl;
-    }
-}
-
+// Пряма відправка пошти (для футера)
 function sendMailDirect(email, subjectText = "Питання щодо Forma3D") {
     const temaLista = encodeURIComponent(subjectText);
     const tekstEncoded = encodeURIComponent("Вітаю! У мене є питання щодо...");
-
-    const platforma = navigator.platform.toLowerCase();
-    const tseWindows = platforma.indexOf('win') !== -1;
+    const isWindows = navigator.platform.toLowerCase().includes('win');
 
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
     const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
 
-    if (tseWindows) {
+    if (isWindows) {
         window.open(gmailUrl, '_blank');
     } else {
         window.location.href = mailtoUrl;
     }
 }
+
+// Оновлення року у футері
+document.getElementById("current-year").textContent = new Date().getFullYear();
 </script>
 
 </body>
