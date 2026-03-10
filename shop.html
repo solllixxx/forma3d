@@ -102,12 +102,13 @@
     }
 
     /* === КАРТКИ ТОВАРІВ === */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 30px;
+  margin-top: 50px;
+  align-items: start; /* Щоб картки не розтягувалися по висоті, якщо вони різні */
+}
 
     .card {
       background: var(--card-bg);
@@ -165,7 +166,7 @@
       font-weight: 700;
       font-size: 14px;
       transition: 0.3s;
-      margin-top: auto;
+      margin-top: 0;
     }
 
     .buy-btn:hover { background: #e0e0e0; transform: scale(1.02); }
@@ -440,6 +441,7 @@
     outline: none;
     font-size: 14px;
     margin-bottom: 15px;
+    margin-top: auto;
     cursor: pointer;
     transition: border-color 0.3s ease, background-color 0.3s ease; /* Прибрали загальний 'all', щоб не рухати фон */
     appearance: none;
@@ -470,6 +472,80 @@
     border: 1px solid #ff4d4d !important;
     box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
     animation: traska 0.3s ease-in-out;
+}
+
+.categories-filter {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: white;
+}
+
+.filter-btn.active {
+    background: white;
+    color: black;
+}
+
+/* Анімація для карток при фільтрації */
+.card {
+    transition: transform 0.4s, opacity 0.4s, border-color 0.4s;
+}
+
+.card.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price-row p {
+    margin-bottom: 0 !important; /* Прибираємо відступ знизу у ціни */
+}
+
+.sku-btn {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-gray);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.sku-btn:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+}
+
+/* Стан при натисканні (на 2 секунди) */
+.sku-btn.active-copy {
+    background: white !important;
+    color: black !important;
+    border-color: white !important;
 }
   </style>
 </head>
@@ -510,6 +586,8 @@
         </p>
 
         <input type="hidden" id="currentProductName" value="">
+<input type="hidden" id="currentProductSKU" value="">
+        
 
         <button class="buy-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 15px;" onclick="validateAndSend()">ЗАМОВИТИ</button>
     </div>
@@ -526,14 +604,27 @@
 
 <section id="services">
   <h2 style="font-size: 32px; margin-bottom: 40px;">Наші товари</h2>
+
+  <div class="categories-filter">
+    <button class="filter-btn active" onclick="filterCategory('all')">Усі</button>
+    <button class="filter-btn" onclick="filterCategory('electronics')">Аксесуари для електроніки</button>
+    <button class="filter-btn" onclick="filterCategory('household')">Побутові товари</button>
+    <button class="filter-btn" onclick="filterCategory('home')">Для дому</button>
+    <button class="filter-btn" onclick="filterCategory('kids')">Для дітей</button>
+</div>
+
+
   <div class="grid">
-<div class="card">
+<div class="card category-kids">
   <div class="card-image">
     <img src="image/tovar 1.jpg" alt="Товар 1">
   </div>
   <div class="card-info">
     <h3>3D Фігурка динозавр Діно Рекс</h3>
+<div class="price-row">
     <p>50 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
     
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -554,13 +645,16 @@
     <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('3D Фігурка динозавр Діно Рекс', this)">КУПИТИ</a>
   </div>
 </div>
-    <div class="card">
+    <div class="card category-kids category-home">
       <div class="card-image">
         <img src="image/tovar 2.jpg" alt="Товар 2">
       </div>
       <div class="card-info">
         <h3>Фігура кам’яного обличчя</h3>
-        <p>150 ₴</p>
+  <div class="price-row">
+    <p>150 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -581,13 +675,16 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Фігура кам’яного обличчя', this)">КУПИТИ</a>
       </div>
     </div>
-    <div class="card">
+    <div class="card category-electronics"> 
       <div class="card-image">
         <img src="image/tovar 3.jpg" alt="Товар 3">
       </div>
       <div class="card-info">
         <h3>Підставка під телефон</h3>
-        <p>120 ₴</p>
+<div class="price-row">
+    <p>120 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -608,13 +705,16 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон', this)">КУПИТИ</a>
       </div>
     </div>
-        <div class="card">
+        <div class="card category-electronics">
       <div class="card-image">
-        <img src="image/tovar 4.jpg" alt="Товар 3">
+        <img src="image/tovar 4.jpg" alt="Товар 4">
       </div>
       <div class="card-info">
         <h3>Кейс для microSD-карт</h3>
-        <p>100 ₴</p>
+  <div class="price-row">
+    <p>100 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-1254')">ART-1254</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -635,13 +735,16 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Кейс для microSD-карт', this)">КУПИТИ</a>
       </div>
     </div>
-        <div class="card">
+        <div class="card category-household">
       <div class="card-image">
-        <img src="image/tovar 5.jpg" alt="Товар 3">
+        <img src="image/tovar 5.jpg" alt="Товар 5">
       </div>
       <div class="card-info">
         <h3>Тримач ременя</h3>
-        <p>70 ₴</p>
+<div class="price-row">
+    <p>70 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -662,13 +765,16 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Тримач ременя', this)">КУПИТИ</a>
       </div>
     </div>
-        <div class="card">
+        <div class="card category-household">
       <div class="card-image">
-        <img src="image/tovar 6.jpg" alt="Товар 3">
+        <img src="image/tovar 6.jpg" alt="Товар 6">
       </div>
       <div class="card-info">
         <h3>Ручка для пакетів</h3>
-        <p>200 ₴</p>
+<div class="price-row">
+    <p>200 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -689,13 +795,16 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Ручка для пакетів', this)">КУПИТИ</a>
       </div>
     </div>
-        <div class="card">
+        <div class="card category-household category-home">
       <div class="card-image">
-        <img src="image/tovar 7.jpg" alt="Товар 3">
+        <img src="image/tovar 7.jpg" alt="Товар 7">
       </div>
       <div class="card-info">
         <h3>Заглушка на болт</h3>
-        <p>50 ₴</p>
+<div class="price-row">
+    <p>50 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-001')">ART-001</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -716,13 +825,36 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Заглушка на болт', this)">КУПИТИ</a>
       </div>
     </div>
-        <div class="card">
+        <div class="card category-electronics">
       <div class="card-image">
-        <img src="image/tovar 8.jpg" alt="Товар 3">
+        <img src="image/tovar 8.jpg" alt="Товар 8">
       </div>
       <div class="card-info">
         <h3>Підставка під телефон у формі серця UA</h3>
-        <p>70 ₴</p>
+<div class="price-row">
+    <p>80 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-1615')">ART-1615</span>
+</div>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Стандартний">Стандартний</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA', this)">КУПИТИ</a>
+      </div>
+    </div>
+
+        <div class="card category-electronics">
+      <div class="card-image">
+        <img src="image/tovar 9.jpg" alt="Товар 9">
+      </div>
+      <div class="card-info">
+        <h3>Підставка під телефон "Хвиля"</h3>
+<div class="price-row">
+    <p>50 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-1251')">ART-1251</span>
+</div>
 
     <select class="color-select">
         <option value="">Оберіть колір...</option>
@@ -740,7 +872,38 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
-        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA', this)">КУПИТИ</a>
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон Хвиля ', this)">КУПИТИ</a>
+      </div>
+    </div>
+
+            <div class="card category-electronics">
+      <div class="card-image">
+        <img src="image/tovar 10.png" alt="Товар 10">
+      </div>
+      <div class="card-info">
+        <h3>Підставка під Планшет, або Електронної книги</h3>
+<div class="price-row">
+    <p>80 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-1832')">ART-1832</span>
+</div>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під Планшет, або Електронної книги', this)">КУПИТИ</a>
       </div>
     </div>
             
@@ -874,24 +1037,25 @@ document.getElementById('userPhone').addEventListener('input', function (e) {
  * @param {HTMLElement} btn - посилання на кнопку (this)
  */
 function openOrderModal(productName, btn) {
-    // Шукаємо випадаючий список кольору в тій же картці (parent .card-info)
     const cardInfo = btn.closest('.card-info');
     const colorSelect = cardInfo.querySelector('.color-select');
     
-    // Перевірка: чи обрано значення
+    // Знаходимо артикул у цій же картці
+    const skuBtn = cardInfo.querySelector('.sku-btn');
+    const productSKU = skuBtn ? skuBtn.innerText.replace('Арт: ', '') : 'Не вказано';
+
     if (!colorSelect.value) {
-        colorSelect.classList.add("color-error"); // Додаємо червону рамку і трясіння
-        setTimeout(() => {
-            colorSelect.classList.remove("color-error");
-        }, 1500);
-        return; // Перериваємо функцію, модалка не відкриється
+        colorSelect.classList.add("color-error");
+        setTimeout(() => { colorSelect.classList.remove("color-error"); }, 1500);
+        return;
     }
 
-    // Якщо колір обрано
     selectedColor = colorSelect.value;
     const modal = document.getElementById("orderModal");
     
+    // Записуємо дані в приховані поля модалки
     document.getElementById("currentProductName").value = productName;
+    document.getElementById("currentProductSKU").value = productSKU; // Зберігаємо артикул
     document.getElementById("selectedProductTitle").innerText = `${productName} (${selectedColor})`;
     
     modal.style.display = "flex";
@@ -914,23 +1078,24 @@ function validateAndSend() {
     const phoneInput = document.getElementById("userPhone");
     const phone = phoneInput.value.trim();
     const productName = document.getElementById("currentProductName").value;
+    const productSKU = document.getElementById("currentProductSKU").value; // Беремо артикул
     
     if (phone.length !== 10) {
         phoneInput.classList.add("input-error");
-        const originalPlaceholder = phoneInput.placeholder;
-        phoneInput.placeholder = "Введіть 10 цифр";
-        phoneInput.value = "";
-        
-        setTimeout(() => {
-            phoneInput.classList.remove("input-error");
-            phoneInput.placeholder = originalPlaceholder;
-        }, 1500);
+        setTimeout(() => { phoneInput.classList.remove("input-error"); }, 1500);
         return;
     }
 
     const targetEmail = "forma3d.info.ua@gmail.com";
-    const subject = encodeURIComponent(`Замовлення: ${productName}`);
-    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\nТовар: ${productName}\nКолір: ${selectedColor}\nТелефон: ${phone}`;
+    const subject = encodeURIComponent(`Замовлення: ${productName} (Арт: ${productSKU})`);
+    
+    // Формуємо текст листа з артикулом
+    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\n` +
+                     `Товар: ${productName}\n` +
+                     `Артикул: ${productSKU}\n` + 
+                     `Колір: ${selectedColor}\n` +
+                     `Телефон: ${phone}`;
+                     
     const bodyEncoded = encodeURIComponent(bodyText);
 
     const isWindows = navigator.platform.toLowerCase().includes('win');
@@ -963,6 +1128,56 @@ function sendMailDirect(email, subjectText = "Питання щодо Forma3D") 
 
 // Оновлення року у футері
 document.getElementById("current-year").textContent = new Date().getFullYear();
+
+function filterCategory(category) {
+    const cards = document.querySelectorAll('.card');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    // Оновлюємо активну кнопку
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    cards.forEach(card => {
+        // Якщо обрано "Усі" або клас картки збігається з категорією
+        if (category === 'all' || card.classList.contains(`category-${category}`)) {
+            card.style.display = "flex";
+            setTimeout(() => {
+                card.style.opacity = "1";
+                card.style.transform = "scale(1)";
+            }, 10);
+        } else {
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                card.style.display = "none";
+            }, 300); // Час має збігатися з CSS transition
+        }
+    });
+
+    // Ховаємо порожню картку "card-empty" при фільтрації, щоб не заважала
+    const emptyCard = document.querySelector('.card-empty');
+    if (emptyCard) {
+        emptyCard.style.display = category === 'all' ? 'flex' : 'none';
+    }
+}
+
+function copySKU(element, sku) {
+    // Копіюємо текст в буфер
+    navigator.clipboard.writeText(sku).then(() => {
+        // Додаємо клас для ефекту "білої кнопки"
+        element.classList.add('active-copy');
+        const originalText = element.innerText;
+        element.innerText = 'СКОПІЙОВАНО';
+
+        // Через 2 секунди повертаємо все назад
+        setTimeout(() => {
+            element.classList.remove('active-copy');
+            element.innerText = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Не вдалося скопіювати: ', err);
+    });
+}
 </script>
 
 </body>
