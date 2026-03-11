@@ -284,7 +284,6 @@
 /* Стиль для порожнього поля з помилкою */
 .contact-content textarea.pomylka {
     border: 1px solid #ff4d4d !important;
-    box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
     animation: traska 0.3s ease-in-out;
 }
 
@@ -454,7 +453,6 @@
 /* Стан помилки */
 .color-error {
     border: 1px solid #ff4d4d !important;
-    box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
     animation: traska 0.3s ease-in-out;
 }
 
@@ -531,6 +529,78 @@
     color: black !important;
     border-color: white !important;
 }
+
+/* Контейнер пошуку */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    height: 42px;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    backdrop-filter: blur(10px);
+}
+
+/* Лупа */
+.search-icon-label {
+    position: absolute;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.search-icon-label svg {
+    stroke: #ffffff;
+    stroke-width: 3; /* ЖИРНА ЛУПА */
+}
+
+/* Поле вводу */
+.search-input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    font-size: 14px;
+    padding: 0 15px 0 42px;
+}
+
+/* --- ПК ВАРІАНТ (Фіксований) --- */
+@media (min-width: 769px) {
+    .search-container {
+        width: 420px;
+        margin: 0 20px;
+    }
+}
+
+/* --- МОБІЛЬНИЙ ВАРІАНТ (Розтягування на весь хедер) --- */
+@media (max-width: 568px) {
+    .search-container {
+        width: 42px; /* Початковий стан — компактна кнопка */
+        margin: 0 5px;
+    }
+
+    /* Коли активовано (focus) — розтягується на весь хедер */
+    .search-container.active {
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        width: calc(100% - 20px);
+        margin: 0;
+        z-index: 100;
+        background: #131313; /* Суцільний фон, щоб перекрити логотип */
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .search-container:not(.active) .search-input {
+        opacity: 0;
+    }
+}
   </style>
 </head>
 <body>
@@ -565,7 +635,7 @@
         <label>Ваш номер телефону:</label>
         <input type="tel" id="userPhone" maxlength="10" placeholder="0XXXXXXXXX">
 
-        <p style="font-size: 13px; color: rgb(221, 221, 221); margin-top: 20px; line-height: 1.4;">
+        <p style="font-size: 13px; color: #a1a1aa; margin-top: 20px; line-height: 1.4;">
             Адміністратор зателефонує вам для уточнення деталей.
         </p>
 
@@ -579,7 +649,26 @@
 
 <header id="navbar">
   <div class="logo">FORMA3D</div>
-  <a href="index.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
+  
+  <div class="search-container" id="searchWrapper">
+    <div class="search-icon-label">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </div>
+    <input type="text" 
+           class="search-input" 
+           id="mainSearch" 
+           placeholder="Пошук..." 
+           oninput="liveSearch()" 
+           onfocus="this.parentElement.classList.add('active')" 
+           onblur="if(this.value === '') this.parentElement.classList.remove('active')">
+  </div>
+
+  <div style="display: flex; align-items: center;">
+    <a href="index.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
+  </div>
 </header>
 
 <section class="hero show" id="home">
@@ -597,8 +686,10 @@
     <button class="filter-btn" onclick="filterCategory('kids')">Для дітей</button>
 </div>
 
-
   <div class="grid">
+
+<!-- tovar 1 -->
+
 <div class="card category-kids">
   <div class="card-image">
     <img src="image/tovar 1.jpg" alt="Товар 1">
@@ -629,6 +720,9 @@
     <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('3D Фігурка динозавр Діно Рекс', this)">КУПИТИ</a>
   </div>
 </div>
+
+<!-- tovar 2 -->
+
     <div class="card category-kids category-home">
       <div class="card-image">
         <img src="image/tovar 2.jpg" alt="Товар 2">
@@ -659,6 +753,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Фігура кам’яного обличчя', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 3 -->
+
     <div class="card category-home"> 
       <div class="card-image">
         <img src="image/tovar 3.png" alt="Товар 3">
@@ -689,6 +786,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підпірка для дверей', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 4 -->
+
         <div class="card category-electronics">
       <div class="card-image">
         <img src="image/tovar 4.jpg" alt="Товар 4">
@@ -719,6 +819,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Кейс для microSD-карт', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 5 -->
+
         <div class="card category-household">
       <div class="card-image">
         <img src="image/tovar 5.jpg" alt="Товар 5">
@@ -749,6 +852,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Тримач ременя', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 6 -->
+
         <div class="card category-household">
       <div class="card-image">
         <img src="image/tovar 6.jpg" alt="Товар 6">
@@ -779,6 +885,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Ручка для пакетів', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 7 -->
+
         <div class="card category-household category-home">
       <div class="card-image">
         <img src="image/tovar 7.jpg" alt="Товар 7">
@@ -809,6 +918,9 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Заглушка на болт', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 8 -->
+
         <div class="card category-electronics">
       <div class="card-image">
         <img src="image/tovar 8.jpg" alt="Товар 8">
@@ -828,6 +940,8 @@
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA', this)">КУПИТИ</a>
       </div>
     </div>
+
+<!-- tovar 9 -->
 
         <div class="card category-electronics">
       <div class="card-image">
@@ -860,6 +974,8 @@
       </div>
     </div>
 
+<!-- tovar 10 -->
+
             <div class="card category-electronics">
       <div class="card-image">
         <img src="image/tovar 10.png" alt="Товар 10">
@@ -867,7 +983,7 @@
       <div class="card-info">
         <h3>Підставка під Планшет, або Електронної книги</h3>
 <div class="price-row">
-    <p>80 ₴</p>
+    <p>120 ₴</p>
     <span class="sku-btn" onclick="copySKU(this, 'ART-1832')">ART-1832</span>
 </div>
 
@@ -888,6 +1004,39 @@
     </select>
 
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під Планшет, або Електронної книги', this)">КУПИТИ</a>
+      </div>
+    </div>
+
+<!-- tovar 11 -->
+
+<div class="card category-electronics">
+      <div class="card-image">
+        <img src="image/tovar 11.jpg" alt="Товар 11">
+      </div>
+      <div class="card-info">
+        <h3>Підставка під телефон "Піраміда"</h3>
+<div class="price-row">
+    <p>50 ₴</p>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-1193')">ART-1193</span>
+</div>
+
+    <select class="color-select">
+        <option value="">Оберіть колір...</option>
+        <option value="Чорний">Чорний</option>
+        <option value="Білий">Білий</option>
+        <option value="Синій">Синій</option>
+        <option value="Жовтий">Жовтий</option>
+        <option value="Червоний">Червоний</option>
+        <option value="Зелений">Зелений</option>
+        <option value="Помаранчевий">Помаранчевий</option>
+        <option value="Багряний">Багряний</option>
+        <option value="Темно-червоний">Темно-червоний</option>
+        <option value="Прозоро-синій">Прозоро-синій</option>
+        <option value="Прозоро-зелений">Прозоро-зелений</option>
+        <option value="Пляшковий-зелений">Пляшковий-зелений</option>
+    </select>
+
+        <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон Піраміда', this)">КУПИТИ</a>
       </div>
     </div>
         
@@ -1159,8 +1308,48 @@ function copySKU(element, sku) {
         console.error('Не вдалося скопіювати: ', err);
     });
 }
+
+function toggleSearchMobile() {
+    const wrapper = document.getElementById('searchWrapper');
+    const input = document.getElementById('mainSearch');
+    
+    if (window.innerWidth <= 768) {
+        wrapper.classList.add('active');
+        input.focus();
+    }
+}
+
+function handleBlur() {
+    const wrapper = document.getElementById('searchWrapper');
+    const input = document.getElementById('mainSearch');
+    
+    // Якщо поле порожнє і це мобільний — згортаємо назад в іконку
+    if (input.value === "" && window.innerWidth <= 768) {
+        wrapper.classList.remove('active');
+    }
+}
+
+// Функція пошуку
+function liveSearch() {
+    let input = document.getElementById('mainSearch').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        let title = card.querySelector('h3').innerText.toLowerCase();
+        // Перевірка наявності SKU перед пошуком
+        let skuBtn = card.querySelector('.sku-btn');
+        let sku = skuBtn ? skuBtn.innerText.toLowerCase() : "";
+        
+        if (title.includes(input) || sku.includes(input)) {
+            card.classList.remove('search-hidden');
+            card.style.display = "flex";
+        } else {
+            card.classList.add('search-hidden');
+            card.style.display = "none";
+        }
+    });
+}
 </script>
 
 </body>
 </html>
-
