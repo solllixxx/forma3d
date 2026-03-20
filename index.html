@@ -110,16 +110,21 @@
       padding-bottom: 200px;
     }
 
-    .hero h1 {
-      font-size: clamp(40px, 8vw, 80px);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -3px;
-      margin-bottom: 30px;
-      background: linear-gradient(to bottom, #fff 40%, #555);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.hero h1 {
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 30px;
+  
+  background: linear-gradient(to bottom, #fff 40%, #555);
+  
+  background-clip: text; /* Стандарт */
+  -webkit-background-clip: text; /* Для Safari i Chrome */
+  
+  color: transparent; 
+  -webkit-text-fill-color: transparent;
+}
 
     .hero p {
       color: var(--text-gray);
