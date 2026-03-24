@@ -497,16 +497,3 @@ document.addEventListener('DOMContentLoaded', () => {
     cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
     updateCartUI();
 });
-
-window.addEventListener('scroll', () => {
-  // Рахуємо, на скільки прокручена сторінка (від 0 до 1)
-  const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-  
-  // Перетворюємо прокрутку в градуси (наприклад, від 150 до 360)
-  const startAngle = 150;
-  const rotationRange = 210; // На скільки градусів воно повернеться за весь скрол
-  const newAngle = startAngle + (scrollPercent * rotationRange);
-  
-  // Оновлюємо змінну в CSS
-  document.body.style.setProperty('--gradient-angle', `${newAngle}deg`);
-});
