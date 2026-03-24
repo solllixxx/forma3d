@@ -185,6 +185,9 @@
       font-weight: 600;
       display: inline-block;
       transition: 0.3s;
+
+      flex-shrink: 0; 
+      white-space: nowrap;
     }
 
     /* === ФУТЕР === */
@@ -624,6 +627,12 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     backdrop-filter: blur(10px);
+
+    flex-shrink: 0; 
+
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    backdrop-filter: blur(10px);
 }
 
 .cart-container:hover {
@@ -748,6 +757,37 @@
     transition: all 0.2s ease;
     cursor: pointer;
 }
+
+/* Базові налаштування для кнопки-стрілки */
+.btn-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px; /* Щоб була такою ж, як кошик */
+    height: 42px;
+    padding: 0 16px; /* Стандартний відступ для ПК */
+}
+
+.home-icon {
+    display: none; /* Ховаємо стрілку на великих екранах */
+}
+
+/* ДЛЯ МОБІЛОК */
+@media (max-width: 410px) {
+    .btn-home {
+        padding: 0; /* Прибираємо внутрішні відступи */
+        width: 42px; /* Робимо кнопку ідеально квадратною/круглою */
+        border-radius: 14px; /* Такий же радіус, як у пошуку та кошика */
+    }
+
+    .home-text {
+        display: none; /* Ховаємо текст */
+    }
+
+    .home-icon {
+        display: block; /* Показуємо стрілку */
+    }
+}
   </style>
 </head>
 <body>
@@ -824,9 +864,15 @@
   <span id="cartCount" class="cart-count">0</span>
 </div>
 
-  <div style="display: flex; align-items: center;">
-    <a href="index.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
-  </div>
+<div style="display: flex; align-items: center;">
+  <a href="index.html" class="btn btn-home">
+    <svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    <span class="home-text">НА ГОЛОВНУ</span>
+  </a>
+</div>
 </header>
 
 <section class="hero show" id="home">
