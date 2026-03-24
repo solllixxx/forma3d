@@ -1,7 +1,13 @@
 <!DOCTYPE html>
+
+
 <html lang="uk">
+
+
+<!-- Скрипт на текст та вигляд відкритий -->
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDZWNT55C3"></script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -9,6 +15,10 @@
 
   gtag('config', 'G-RDZWNT55C3');
 </script>
+<!-- Скрипт на текст та вигляд закритий -->
+
+
+<!-- Head відкритий -->
 <head>
     <!-- Open Graph / Link Preview -->
   <meta property="og:title" content="Forma3D — 3D-друк, фігурки, кастомні моделі" />
@@ -23,877 +33,16 @@
   <title>Forma3D - Магазин</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #131313;
-      --card-bg: #111113;
-      --accent: #ffffff;
-      --text-gray: #a1a1aa;
-      --border: rgba(255, 255, 255, 0.1);
-      --header-h: 80px;
-      scroll-behavior: smooth;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: white;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* === ХЕДЕР === */
-    header {
-      position: fixed;
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 95%;
-      max-width: 1200px;
-      height: 64px;
-      margin-top: 20px;
-      background: rgba(15, 15, 15, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 30px;
-      z-index: 1000;
-      transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    }
-
-    header.visible { top: 0; }
-    header.scrolled { width: 100%; top: -20px; border: 1px solid var(--border); border-radius: 20px; background: rgba(5, 5, 5, 0.9); }
-
-    .logo { font-weight: 800; font-size: 20px; letter-spacing: -1px; }
-
-    /* === СЕКЦІЇ === */
-    section {
-      padding: 100px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-
-    .hero {
-      text-align: center;
-      padding-top: 250px;
-      padding-bottom: 150px;
-    }
-
-.hero h1 {
-  font-size: clamp(40px, 8vw, 80px);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -3px;
-  margin-bottom: 30px;
-  
-  background: linear-gradient(to bottom, #fff 40%, #555);
-  
-  background-clip: text; /* Стандарт */
-  -webkit-background-clip: text; /* Для Safari i Chrome */
-  
-  color: transparent; 
-  -webkit-text-fill-color: transparent;
-}
-
-    /* === КАРТКИ ТОВАРІВ === */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 30px;
-  margin-top: 50px;
-  align-items: start; /* Щоб картки не розтягувалися по висоті, якщо вони різні */
-}
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      transition: 0.4s;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 460px;
-    }
-
-    .card:hover {
-      border-color: rgba(255,255,255,0.3);
-      transform: translateY(-10px);
-    }
-
-    .card-image {
-      width: 100%;
-      height: 320px;
-      background: #1a1a1c;
-      overflow: hidden;
-    }
-
-    .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.5s;
-    }
-
-    .card:hover .card-image img {
-      transform: scale(1.1);
-    }
-
-    .card-info {
-      padding: 25px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .card h3 { font-size: 22px; margin-bottom: 12px; }
-    .card p { color: var(--text-gray); font-size: 24px; margin-bottom: 20px; flex-grow: 1; }
-
-    .buy-btn {
-      background: white;
-      color: black;
-      text-align: center;
-      padding: 14px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      transition: 0.3s;
-      margin-top: 0;
-    }
-
-    .buy-btn:hover { background: #e0e0e0; transform: scale(1.02); }
-
-    .btn {
-      background: white;
-      color: black;
-      padding: 16px 32px;
-      border-radius: 100px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      transition: 0.3s;
-
-      flex-shrink: 0; 
-      white-space: nowrap;
-    }
-
-    /* === ФУТЕР === */
-    footer {
-      padding: 100px 40px 60px;
-      border-top: 1px solid var(--border);
-      background: #080808;
-      margin-top: 100px;
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 60px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 60px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 50px;
-      margin-bottom: 80px;
-    }
-
-    .footer-col h4 {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: white;
-      margin-bottom: 25px;
-    }
-
-    .footer-col a, .footer-col p {
-      color: var(--text-gray);
-      text-decoration: none;
-      font-size: 15px;
-      margin-bottom: 15px;
-      display: block;
-      transition: 0.3s;
-    }
-
-    .footer-col a:hover { color: white; }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 40px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      color: #797979;
-      font-size: 13px;
-    }
-
-    /* Стиль для посилання розробника (solix) */
-    .developer-link {
-      color: #797979; /* Колір як у всього тексту знизу */
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-
-    .developer-link:hover {
-      color: var(--accent); /* Білий при наведенні */
-    }
-
-    /* Панель зв'язку */
-    .horizontal-contact {
-      position: fixed; top: 50%; right: 0; transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-      padding: 40px 12px; writing-mode: vertical-rl; text-align: center;
-      border: 1px solid var(--border); border-right: none; border-radius: 20px 0 0 20px;
-      cursor: pointer; z-index: 1000; font-weight: 600; letter-spacing: 2px; transition: 0.3s;
-    }
-    .contact-bar {
-      position: fixed; top: 50%; right: -400px; transform: translateY(-50%);
-      width: 350px; background: #111113; border: 1px solid var(--border);
-      border-radius: 30px 0 0 30px; transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-      z-index: 1001; padding: 40px; box-shadow: -20px 0 50px rgba(0,0,0,0.5);
-    }
-    .contact-bar.active { right: 0; }
-    .contact-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-      z-index: 1000; display: none; opacity: 0; transition: 0.4s;
-    }
-    .contact-overlay.active { display: block; opacity: 1; }
-    .contact-content input, .contact-content textarea {
-      width: 100%; background: #1a1a1c; border: 1px solid var(--border); border-radius: 12px;
-      padding: 14px; color: white; margin-bottom: 20px; outline: none;
-    }
-    .contact-content button {
-      width: 100%; padding: 16px; background: white; color: black; border: none; border-radius: 12px;
-      font-weight: 700; cursor: pointer;
-    }
-
-/* Стиль для порожнього поля з помилкою */
-.contact-content textarea.pomylka {
-    border: 1px solid #ff4d4d !important;
-    animation: traska 0.3s ease-in-out;
-}
-
-/* Анімація трясіння */
-@keyframes traska {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Колір тексту підказки при помилці */
-.contact-content textarea.pomylka::placeholder {
-    color: #ff4d4d;
-}
-
-/* === МОДАЛЬНЕ ВІКНО ЗАМОВЛЕННЯ === */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Напівпрозорий фон */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: none; /* Сховано за замовчуванням */
-    justify-content: center;
-    align-items: center;
-    z-index: 3000;
-    transition: all 0.3s ease;
-}
-
-.modal-content {
-    background: #111113;
-    border: 1px solid var(--border);
-    padding: 30px;
-    border-radius: 30px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    animation: modalSlideUp 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-@keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.modal-content label {
-    display: block;
-    font-size: 12px;
-    color: var(--text-gray);
-    margin-bottom: 8px;
-    margin-top: 15px;
-}
-
-.modal-content input, 
-.modal-content select, 
-.modal-content textarea {
-    width: 100%;
-    background: #1a1a1c;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    color: white;
-    outline: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
-
-.modal-content input:focus, 
-.modal-content textarea:focus {
-    border-color: rgba(255,255,255,0.5);
-}
-
-.modal-content textarea {
-    resize: none;
-    height: 80px;
-}
-
-/* Стиль для помилки (червона рамка + трясіння) */
-.input-error {
-    border: 1px solid #ff4d4d !important;
-    animation: traska 0.3s ease-in-out;
-}
-
-@keyframes traska {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-.close-modal {
-    cursor: pointer;
-    font-size: 20px;
-    color: var(--text-gray);
-    transition: 0.3s;
-}
-
-.close-modal:hover {
-    color: white;
-}
-
-/* Кнопка всередині модалки */
-.modal-content .buy-btn {
-    width: 100%;
-    margin-top: 25px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Прихований заголовок товару в модалці */
-#selectedProductTitle {
-    font-size: 14px;
-    color: var(--accent);
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-/* === ВИПРАВЛЕНИЙ СТИЛЬ ВИБОРУ КОЛЬОРУ === */
-.color-select {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 12px 40px 12px 15px; /* Збільшений відступ справа для стрілки */
-    color: white;
-    outline: none;
-    font-size: 14px;
-    margin-bottom: 15px;
-    margin-top: auto;
-    cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease; /* Прибрали загальний 'all', щоб не рухати фон */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-    /* Фіксована стрілка */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center; /* Чітка позиція: 15px від правого краю */
-    background-size: 12px;
-    box-sizing: border-box; /* Важливо для правильних відступів */
-}
-
-.color-select:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-
-/* Safari/Chrome */
-.color-select option {
-    background-color: #131313; 
-    color: white;
-}
-
-/* Стан помилки */
-.color-error {
-    border: 1px solid #ff4d4d !important;
-    animation: traska 0.3s ease-in-out;
-}
-
-.categories-filter {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 100px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.filter-btn:hover {
-    border-color: white;
-}
-
-.filter-btn.active {
-    background: white;
-    color: black;
-}
-
-/* Анімація для карток при фільтрації */
-.card {
-    transition: transform 0.4s, opacity 0.4s, border-color 0.4s;
-}
-
-.card.hidden {
-    display: none;
-    opacity: 0;
-}
-
-.price-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.price-row p {
-    margin-bottom: 0 !important; /* Прибираємо відступ знизу у ціни */
-}
-
-.sku-btn {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--text-gray);
-    border: 1px solid var(--border);
-    padding: 6px 12px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    user-select: none;
-}
-
-.sku-btn:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    color: white;
-}
-
-/* Стан при натисканні (на 2 секунди) */
-.sku-btn.active-copy {
-    background: white !important;
-    color: black !important;
-    border-color: white !important;
-}
-
-/* Контейнер пошуку */
-.search-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 14px;
-    height: 42px;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    backdrop-filter: blur(10px);
-}
-
-/* Лупа */
-.search-icon-label {
-    position: absolute;
-    left: 12px;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.search-icon-label svg {
-    stroke: #ffffff;
-    stroke-width: 3; /* ЖИРНА ЛУПА */
-}
-
-/* Поле вводу */
-.search-input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    font-size: 14px;
-    padding: 0 15px 0 42px;
-}
-
-/* --- ПК ВАРІАНТ (Фіксований) --- */
-@media (min-width: 769px) {
-    .search-container {
-        width: 420px;
-        margin: 0 20px;
-    }
-}
-
-/* --- МОБІЛЬНИЙ ВАРІАНТ (Розтягування на весь хедер) --- */
-@media (max-width: 568px) {
-    .search-container {
-        width: 43px; /* Початковий стан — компактна кнопка */
-        margin: 0 5px;
-    }
-
-    /* Коли активовано (focus) — розтягується на весь хедер */
-    .search-container.active {
-        position: absolute;
-        left: 10px;
-        right: 10px;
-        width: calc(100% - 20px);
-        margin: 0;
-        z-index: 100;
-        background: #131313; /* Суцільний фон, щоб перекрити логотип */
-        border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .search-container:not(.active) .search-input {
-        opacity: 0;
-    }
-}
-
-/* Запобігання автоматичному зуму на мобільних пристроях */
-@media (max-width: 768px) {
-    .search-input {
-        font-size: 16px !important; /* Браузер не буде зумити, бо шрифт >= 16px */
-    }
-    
-    /* Якщо 16px виглядає завеликим, можна візуально зменшити текст */
-    .search-input::placeholder {
-        font-size: 14px;
-    }
-}
-
-/* === КОШИК ЯК ПОШУК === */
-.cart-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    background: rgba(255, 255, 255, 0.07);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 14px;
-
-    height: 42px;
-    width: 42px;
-
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    backdrop-filter: blur(10px);
-
-    flex-shrink: 0; 
-
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    backdrop-filter: blur(10px);
-}
-
-.cart-container:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Іконка */
-.cart-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Лічильник */
-.cart-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-
-    background: white;
-    color: black;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    padding: 3px 6px;
-    border-radius: 10px;
-}
-
-.qty-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.qty-btn {
-    width: 26px;
-    height: 26px;
-
-    border-radius: 8px;
-    border: 1px solid var(--border);
-
-    background: rgba(255,255,255,0.05);
-    color: white;
-
-    cursor: pointer;
-    font-weight: 700;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: 0.2s;
-}
-
-.qty-btn:hover {
-    background: white;
-    color: black;
-}
-
-.qty-number {
-    min-width: 20px;
-    text-align: center;
-    font-weight: 600;
-}
-
-/* Контейнер для списку товарів всередині модалки */
-#cartItems {
-    max-height: 350px;    /* Фіксована висота, після якої з'явиться скрол */
-    overflow-y: auto;     /* Дозволяємо вертикальну прокрутку */
-    overflow-x: hidden;   /* Ховаємо горизонтальну */
-    padding-right: 10px;  /* Відступ для скролбару */
-    margin-top: 10px;
-}
-
-/* Робимо скролбар тонким і стильним */
-#cartItems::-webkit-scrollbar {
-    width: 4px;
-}
-#cartItems::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-}
-
-/* Додатково: зафіксуємо заголовок і футер модалки */
-.modal-content {
-    max-height: 90vh;    /* Щоб модалка не була більшою за екран */
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-header {
-    flex-shrink: 0;      /* Заголовок не стискається */
-}
-
-/* Кнопки та телефон знизу теж не мають скролитись */
-#cartModal .buy-btn, 
-#cartModal input, 
-#cartModal label {
-    flex-shrink: 0;
-}
-
-.qty-btn, 
-.cart-remove-icon {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none;     /* IE 10+ */
-    user-select: none;         /* Стандарт */
-    cursor: pointer;           /* Щоб було зрозуміло, що це кнопка */
-}
-
-/* Стан кнопки після натискання */
-.added {
-    background-color: #ffffff !important; /* Зелений колір успіху */
-    color: #000000 !important;           /* БІЛИЙ колір тексту */
-    pointer-events: none;                /* Забороняємо кліки, поки горить "ДОДАНО" */
-    user-select: none;                   /* Забороняємо виділення тексту */
-}
-
-/* Додамо плавності, щоб текст не змінювався надто різко */
-.buy-btn {
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-/* Базові налаштування для кнопки-стрілки */
-.btn-home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 42px; /* Щоб була такою ж, як кошик */
-    height: 42px;
-    padding: 0 16px; /* Стандартний відступ для ПК */
-    font-size: 12px;
-}
-
-.home-icon {
-    display: none; /* Ховаємо стрілку на великих екранах */
-}
-
-/* ДЛЯ МОБІЛОК */
-@media (max-width: 410px) {
-    .btn-home {
-        padding: 0; /* Прибираємо внутрішні відступи */
-        width: 42px; /* Робимо кнопку ідеально квадратною/круглою */
-        border-radius: 14px; /* Такий же радіус, як у пошуку та кошика */
-    }
-
-    .home-text {
-        display: none; /* Ховаємо текст */
-    }
-
-    .home-icon {
-        display: block; /* Показуємо стрілку */
-    }
-}
-
-.search-results-popover {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    width: 100%;
-    background: rgba(17, 17, 19, 0.95);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: none; /* Сховано за замовчуванням */
-    z-index: 2000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.suggestion-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    gap: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.suggestion-item:hover {
-    background: rgba(255,255,255,0.05);
-}
-
-.suggestion-item img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.suggestion-info h4 {
-    font-size: 14px;
-    margin: 0;
-}
-
-.suggestion-info span {
-    font-size: 12px;
-    color: var(--text-gray);
-}
-  </style>
+  <link rel="stylesheet" href="shop.css">
 </head>
+<!-- Head закритий -->
+
+
+<!-- Body відкритий -->
 <body>
 
-<div class="contact-overlay" id="contactOverlay" onclick="closeContact()"></div>
-<div class="horizontal-contact" id="horizontalContact" onclick="openContact()">Зв'язок</div>
 
-<div class="contact-bar" id="contactBar">
-  <div class="contact-content">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 22px; font-weight: 800;">
-      <span>Зв'язок</span>
-      <span style="cursor:pointer; color: white;" onclick="closeContact()">✖</span>
-    </div>
-    <label style="font-size: 12px; color: var(--text-gray);">Email:</label>
-    <input type="email" id="email" value="forma3d.info.ua@gmail.com" readonly />
-    <label style="font-size: 12px; color: var(--text-gray);">Повідомлення:</label>
-    <textarea id="message" placeholder="Введіть ваше повідомлення..."></textarea>
-    <button onclick="sendMail()">Відправити</button>      
-  </div>
-</div>
-
-<div id="orderModal" class="modal-overlay" onclick="handleOutsideClick(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <div class="modal-header">
-            <div>
-                <span style="font-size: 22px; font-weight: 800; display: block;">Оформлення</span>
-                <span id="selectedProductTitle" style="font-size: 14px; color: var(--text-gray);">Товар</span>
-            </div>
-            <span class="close-modal" onclick="closeOrderModal()">✖</span>
-        </div>
-        
-        <label>Ваш номер телефону:</label>
-        <input type="tel" id="userPhone" maxlength="10" placeholder="0XXXXXXXXX">
-
-        <p style="font-size: 13px; color: #a1a1aa; margin-top: 20px; line-height: 1.4;">
-            Адміністратор зателефонує вам для уточнення деталей.
-        </p>
-
-        <input type="hidden" id="currentProductName" value="">
-<input type="hidden" id="currentProductSKU" value="">
-        
-
-        <button class="buy-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 15px;" onclick="validateAndSend()">ЗАМОВИТИ</button>
-    </div>
-</div>
-
+<!-- Header відкритий -->
 <header id="navbar">
   <div class="logo">FORMA3D</div>
   
@@ -937,11 +86,17 @@
   </a>
 </div>
 </header>
+<!-- Header закритий -->
 
+
+<!-- Секція головна відкрита -->
 <section class="hero show" id="home">
   <h1>Магазин 3D друку.</h1>
 </section>
+<!-- Секція головна закрита -->
 
+
+<!-- Секція товарів та категорій відкрита -->
 <section id="services">
   <h2 style="font-size: 32px; margin-bottom: 40px;">Наші товари</h2>
 
@@ -1415,7 +570,11 @@
     </div>
   </div>
 </section>
+<!-- Секція товарів та категорій закрита -->
 
+
+
+<!-- Footer відкритий -->
 <footer>
   <div class="footer-container">
     <div class="footer-header">
@@ -1459,514 +618,20 @@
   <p>Ukraine</p>
 </div>
 
+
+<!-- Оновлення року відкрите -->
 <script>
-  // Автоматическое обновление текущего года
+  // Автоматичне оновлення поточного року у футері
   document.getElementById("current-year").textContent = new Date().getFullYear();
 </script>
+<!-- Оновлення року закрите -->
+
+
 </footer>
+<!-- Footer закритий -->
 
-<script>
-// === ГЛОБАЛЬНІ ЗМІННІ ===
-const header = document.getElementById('navbar');
-const sections = document.querySelectorAll('section');
-let lastScroll = 0;
-let selectedColor = ""; // Зберігаємо обраний колір для замовлення
 
-// === ЛОГІКА ХЕДЕРА (Scroll & Load) ===
-window.addEventListener('load', () => {
-    setTimeout(() => { header.classList.add('visible'); }, 300);
-});
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > lastScroll && currentScroll > 100) {
-        header.style.top = "-100px";
-    } else {
-        header.style.top = currentScroll > 50 ? "10px" : "20px";
-        header.classList.toggle('scrolled', currentScroll > 50);
-    }
-    lastScroll = currentScroll;
-});
-
-// === БІЧНА ПАНЕЛЬ ЗВ'ЯЗКУ ===
-function openContact() {
-    document.getElementById("contactBar").classList.add("active");
-    document.getElementById("contactOverlay").classList.add("active");
-    document.getElementById("horizontalContact").style.opacity = "0";
-}
-
-function closeContact() {
-    document.getElementById("contactBar").classList.remove("active");
-    document.getElementById("contactOverlay").classList.remove("active");
-    setTimeout(() => { document.getElementById("horizontalContact").style.opacity = "1"; }, 400);
-}
-
-// Відправка повідомлення з бічної панелі
-function sendMail() {
-    const poshta = "forma3d.info.ua@gmail.com";
-    const polePovidomlennya = document.getElementById("message");
-    const tekstPovidomlennya = polePovidomlennya.value.trim();
-    
-    if (!tekstPovidomlennya) { 
-        polePovidomlennya.classList.add("pomylka");
-        polePovidomlennya.placeholder = "Будь ласка, введіть текст...";
-        setTimeout(() => { polePovidomlennya.classList.remove("pomylka"); }, 1500);
-        return; 
-    }
-
-    const temaLista = encodeURIComponent("Запитання Forma3D");
-    const tekstEncoded = encodeURIComponent(tekstPovidomlennya);
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-
-    if (isWindows) {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${poshta}&su=${temaLista}&body=${tekstEncoded}`, '_blank');
-    } else {
-        window.location.href = `mailto:${poshta}?subject=${temaLista}&body=${tekstEncoded}`;
-    }
-    closeContact();
-}
-
-// === МОДАЛЬНЕ ВІКНО ЗАМОВЛЕННЯ ТА ВИБІР КОЛЬОРУ ===
-
-// Блокування введення літер у поле телефону (тільки цифри)
-document.getElementById('userPhone').addEventListener('input', function (e) {
-    e.target.value = e.target.value.replace(/\D/g, ''); 
-});
-
-/**
- * Відкриття модалки з перевіркою кольору
- * @param {string} productName - назва товару
- * @param {HTMLElement} btn - посилання на кнопку (this)
- */
-function openOrderModal(productName, btn) {
-    const cardInfo = btn.closest('.card-info');
-    const colorSelect = cardInfo.querySelector('.color-select');
-    
-    // Знаходимо артикул у цій же картці
-    const skuBtn = cardInfo.querySelector('.sku-btn');
-    const productSKU = skuBtn ? skuBtn.innerText.replace('Арт: ', '') : 'Не вказано';
-
-    if (!colorSelect.value) {
-        colorSelect.classList.add("color-error");
-        setTimeout(() => { colorSelect.classList.remove("color-error"); }, 1500);
-        return;
-    }
-
-    selectedColor = colorSelect.value;
-    const modal = document.getElementById("orderModal");
-    
-    // Записуємо дані в приховані поля модалки
-    document.getElementById("currentProductName").value = productName;
-    document.getElementById("currentProductSKU").value = productSKU; // Зберігаємо артикул
-    document.getElementById("selectedProductTitle").innerText = `${productName} (${selectedColor})`;
-    
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-}
-
-function closeOrderModal() {
-    const modal = document.getElementById("orderModal");
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-    document.getElementById("userPhone").value = ""; 
-}
-
-function handleOutsideClick(event) {
-    if (event.target.id === "orderModal") closeOrderModal();
-}
-
-// Валідація телефону та фінальна відправка на пошту
-function validateAndSend() {
-    const phoneInput = document.getElementById("userPhone");
-    const phone = phoneInput.value.trim();
-    const productName = document.getElementById("currentProductName").value;
-    const productSKU = document.getElementById("currentProductSKU").value; // Беремо артикул
-    
-    if (phone.length !== 10) {
-        phoneInput.classList.add("input-error");
-        setTimeout(() => { phoneInput.classList.remove("input-error"); }, 1500);
-        return;
-    }
-
-    const targetEmail = "forma3d.info.ua@gmail.com";
-    const subject = encodeURIComponent(`Замовлення: ${productName} (Арт: ${productSKU})`);
-    
-    // Формуємо текст листа з артикулом
-    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\n` +
-                     `Товар: ${productName}\n` +
-                     `Артикул: ${productSKU}\n` + 
-                     `Колір: ${selectedColor}\n` +
-                     `Телефон: ${phone}`;
-                     
-    const bodyEncoded = encodeURIComponent(bodyText);
-
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-    if (isWindows) {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${subject}&body=${bodyEncoded}`, '_blank');
-    } else {
-        window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${bodyEncoded}`;
-    }
-
-    closeOrderModal();
-}
-
-// === ДОПОМІЖНІ ФУНКЦІЇ ===
-
-// Пряма відправка пошти (для футера)
-function sendMailDirect(email, subjectText = "Питання щодо Forma3D") {
-    const temaLista = encodeURIComponent(subjectText);
-    const tekstEncoded = encodeURIComponent("Вітаю! У мене є питання щодо...");
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${temaLista}&body=${tekstEncoded}`;
-    const mailtoUrl = `mailto:${email}?subject=${temaLista}&body=${tekstEncoded}`;
-
-    if (isWindows) {
-        window.open(gmailUrl, '_blank');
-    } else {
-        window.location.href = mailtoUrl;
-    }
-}
-
-// Оновлення року у футері
-document.getElementById("current-year").textContent = new Date().getFullYear();
-
-function filterCategory(category) {
-    const cards = document.querySelectorAll('.card');
-    const buttons = document.querySelectorAll('.filter-btn');
-
-    // Оновлюємо активну кнопку
-    buttons.forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-
-    cards.forEach(card => {
-        // Якщо обрано "Усі" або клас картки збігається з категорією
-        if (category === 'all' || card.classList.contains(`category-${category}`)) {
-            card.style.display = "flex";
-            setTimeout(() => {
-                card.style.opacity = "1";
-                card.style.transform = "scale(1)";
-            }, 10);
-        } else {
-            card.style.opacity = "0";
-            card.style.transform = "scale(0.95)";
-            setTimeout(() => {
-                card.style.display = "none";
-            }, 300); // Час має збігатися з CSS transition
-        }
-    });
-
-    // Ховаємо порожню картку "card-empty" при фільтрації, щоб не заважала
-    const emptyCard = document.querySelector('.card-empty');
-    if (emptyCard) {
-        emptyCard.style.display = category === 'all' ? 'flex' : 'none';
-    }
-}
-
-function copySKU(element, sku) {
-    // Копіюємо текст в буфер
-    navigator.clipboard.writeText(sku).then(() => {
-        // Додаємо клас для ефекту "білої кнопки"
-        element.classList.add('active-copy');
-        const originalText = element.innerText;
-        element.innerText = 'СКОПІЙОВАНО';
-
-        // Через 2 секунди повертаємо все назад
-        setTimeout(() => {
-            element.classList.remove('active-copy');
-            element.innerText = originalText;
-        }, 2000);
-    }).catch(err => {
-        console.error('Не вдалося скопіювати: ', err);
-    });
-}
-
-function toggleSearchMobile() {
-    const wrapper = document.getElementById('searchWrapper');
-    const input = document.getElementById('mainSearch');
-    
-    if (window.innerWidth <= 768) {
-        wrapper.classList.add('active');
-        input.focus();
-    }
-}
-
-function handleBlur() {
-    const wrapper = document.getElementById('searchWrapper');
-    const input = document.getElementById('mainSearch');
-    
-    // Якщо поле порожнє і це мобільний — згортаємо назад в іконку
-    if (input.value === "" && window.innerWidth <= 768) {
-        wrapper.classList.remove('active');
-    }
-}
-
-// Функція пошуку
-function liveSearch() {
-    const input = document.getElementById('mainSearch').value.toLowerCase();
-    const suggestionsContainer = document.getElementById('searchSuggestions');
-    const cards = document.querySelectorAll('.card');
-    
-    // Очищуємо попередні результати
-    suggestionsContainer.innerHTML = '';
-
-    if (input.length < 1) {
-        suggestionsContainer.style.display = 'none';
-        return;
-    }
-
-    let foundAny = false;
-
-    cards.forEach(card => {
-        const title = card.querySelector('h3').innerText;
-        const price = card.querySelector('.price-row p').innerText;
-        const imgSrc = card.querySelector('.card-image img').src;
-        const skuText = card.querySelector('.sku-btn')?.innerText || "";
-
-        if (title.toLowerCase().includes(input) || skuText.toLowerCase().includes(input)) {
-            foundAny = true;
-            
-            // Створюємо елемент підказки
-            const div = document.createElement('div');
-            div.className = 'suggestion-item';
-            div.innerHTML = `
-                <img src="${imgSrc}">
-                <div class="suggestion-info">
-                    <h4>${title}</h4>
-                    <span>${price}</span>
-                </div>
-            `;
-            
-div.onclick = () => {
-    // 1. Плавний скрол до картки товару
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // 2. Ефект підсвічування обраного товару (опціонально)
-    card.style.borderColor = 'white';
-    setTimeout(() => card.style.borderColor = '', 2000);
-
-    // 3. Згортання пошуку
-    const wrapper = document.getElementById('searchWrapper');
-    const input = document.getElementById('mainSearch');
-    const suggestionsContainer = document.getElementById('searchSuggestions');
-
-    suggestionsContainer.style.display = 'none'; // Ховаємо випадаючий список
-    input.value = '';                            // Очищуємо текст
-    input.blur();                                // Прибираємо клавіатуру (фокус)
-    
-    // Якщо ми на мобільці — згортаємо синю/білу рамку пошуку
-    if (window.innerWidth <= 768) {
-        wrapper.classList.remove('active');
-    }
-};
-            
-            suggestionsContainer.appendChild(div);
-        }
-    });
-
-    suggestionsContainer.style.display = foundAny ? 'block' : 'none';
-}
-
-// Закриваємо підказки, якщо клікнули поза пошуком
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-container')) {
-        document.getElementById('searchSuggestions').style.display = 'none';
-    }
-});
-
-let cart = [];
-
-document.addEventListener('DOMContentLoaded', () => {
-    cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
-    updateCartUI();
-});
-
-function saveCart() {
-    localStorage.setItem('forma3d_cart', JSON.stringify(cart));
-}
-
-function addToCart(btn) {
-    // 1. Перевіряємо, чи кнопка вже в стані "ДОДАНО"
-    // Це важливо, щоб таймер не скидався при кожному кліку
-    if (btn.classList.contains('added')) return;
-
-    const card = btn.closest('.card-info');
-    const title = card.querySelector('h3').innerText;
-    
-    // Отримуємо ціну (прибираємо пробіли та "₴", якщо вони є, щоб parseInt спрацював чисто)
-    const priceText = card.querySelector('.price-row p').innerText;
-    const price = parseInt(priceText.replace(/[^0-9]/g, '')); 
-    
-    const colorSelect = card.querySelector('.color-select');
-
-    // Перевірка вибору кольору
-    if (!colorSelect.value) {
-        colorSelect.classList.add("color-error");
-        setTimeout(() => colorSelect.classList.remove("color-error"), 1500);
-        return;
-    }
-
-    const color = colorSelect.value;
-    const existing = cart.find(item => item.title === title && item.color === color);
-
-    if (existing) {
-        existing.qty += 1;
-    } else {
-        const sku = card.querySelector('.sku-btn')?.innerText || '';
-        cart.push({
-            title,
-            price,
-            color,
-            sku,
-            qty: 1
-        });
-    }
-
-    // 2. ФІДБЕК КНОПКИ
-    const originalText = btn.innerText;
-    btn.classList.add('added');
-    btn.innerText = 'ДОДАНО';
-
-    // 3. Повертаємо початковий стан через 2 секунди
-    setTimeout(() => {
-        btn.classList.remove('added');
-        btn.innerText = originalText;
-    }, 2000);
-
-    updateCartUI();
-    saveCart();
-}
-function updateCartUI() {
-    const container = document.getElementById('cartItems');
-    const totalEl = document.getElementById('cartTotal');
-    const countEl = document.getElementById('cartCount');
-
-    container.innerHTML = "";
-
-    let total = 0;
-    let count = 0;
-
-    cart.forEach((item, index) => {
-        total += item.price * item.qty;
-        count += item.qty;
-
-container.innerHTML += `
-<div style="margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">
-    <b>${item.title}</b><br>
-    Колір: ${item.color}<br>
-    
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-        
-        <div class="qty-controls" style="user-select: none; -webkit-user-select: none; display: flex; align-items: center;">
-            <div class="qty-btn" onclick="changeQty(${index}, -1)" style="cursor:pointer; padding: 0 5px;">−</div>
-            <div class="qty-number" style="margin: 0 10px;">${item.qty}</div>
-            <div class="qty-btn" onclick="changeQty(${index}, 1)" style="cursor:pointer; padding: 0 5px;">+</div>
-        </div>
-
-        <div style="user-select: none; -webkit-user-select: none; display: flex; align-items: center;">
-            <span>${item.price * item.qty} ₴</span>
-            <span onclick="removeItem(${index})" 
-                  style="cursor:pointer; margin-left:15px; font-size: 1.1em; display: inline-block; line-height: 1;">
-                  ✖
-            </span>
-        </div>
-
-    </div>
-</div>
-`;
-    });
-
-    totalEl.innerText = total;
-    countEl.innerText = count;
-}
-
-function changeQty(index, delta) {
-    cart[index].qty += delta;
-
-    if (cart[index].qty <= 0) {
-        cart.splice(index, 1);
-    }
-
-        updateCartUI();
-    saveCart();
-}
-
-function removeItem(index) {
-    cart.splice(index, 1);
-        updateCartUI();
-    saveCart();
-}
-
-function openCart() {
-    document.getElementById("cartModal").style.display = "flex";
-}
-
-function closeCart() {
-    document.getElementById("cartModal").style.display = "none";
-}
-
-function sendCartOrder() {
-    const phoneInput = document.getElementById("cartPhone");
-    const phone = phoneInput.value.trim();
-
-    if (phone.length !== 10) {
-        phoneInput.classList.add("input-error");
-        setTimeout(() => {
-            phoneInput.classList.remove("input-error");
-        }, 1500);
-        return;
-    }
-
-    if (cart.length === 0) {
-        alert("Кошик порожній");
-        return;
-    }
-
-    // Формуємо текст листа
-    let text = "НОВЕ ЗАМОВЛЕННЯ З КОШИКА\n\n";
-
-    cart.forEach((item, index) => {
-        text += `${index + 1}. ${item.title}\n`;
-        text += `   Артикул: ${item.sku || 'Не вказано'}\n`; // ДОДАНО АРТИКУЛ
-        text += `   Колір: ${item.color}\n`;
-        text += `   Кількість: ${item.qty} шт.\n`;
-        text += `   Ціна: ${item.price * item.qty} ₴\n\n`;
-    });
-
-    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-
-    text += `--------------------------\n`;
-    text += `ЗАГАЛЬНА СУМА: ${total} ₴\n`;
-    text += `ТЕЛЕФОН: ${phone}`;
-
-    const subject = encodeURIComponent("Замовлення Forma3D (Кошик)");
-    const body = encodeURIComponent(text);
-
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-
-    if (isWindows) {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=forma3d.info.ua@gmail.com&su=${subject}&body=${body}`, '_blank');
-    } else {
-        window.location.href = `mailto:forma3d.info.ua@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    // Опціонально: очистити кошик після натискання "Замовити"
-    // cart = [];
-    // saveCart();
-    // updateCartUI();
-    // closeCart();
-}
-
-document.getElementById('cartPhone').addEventListener('input', function (e) {
-    e.target.value = e.target.value.replace(/\D/g, '');
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
-    updateCartUI();
-});
-</script>
-
+<!-- Modal вікно Кошику відкрите -->
 <div id="cartModal" class="modal-overlay" onclick="closeCart(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
     
@@ -1992,7 +657,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   </div>
 </div>
+<!-- Modal вікно Кошику закрите -->
+
+
+<!-- Modal вікно Зв’язку відкрите -->
+<div class="contact-overlay" id="contactOverlay" onclick="closeContact()"></div>
+<div class="horizontal-contact" id="horizontalContact" onclick="openContact()">Зв'язок</div>
+
+<div class="contact-bar" id="contactBar">
+  <div class="contact-content">
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 22px; font-weight: 800;">
+      <span>Зв'язок</span>
+      <span style="cursor:pointer; color: white;" onclick="closeContact()">✖</span>
+    </div>
+
+    <label style="font-size: 12px; color: var(--text-gray);">Email:</label>
+    <input type="email" id="email" value="forma3d.info.ua@gmail.com" readonly />
+    <label style="font-size: 12px; color: var(--text-gray);">Повідомлення:</label>
+    
+    <textarea id="message" placeholder="Введіть ваше повідомлення..."></textarea>
+
+    <button onclick="sendMail()">Відправити</button>      
+  </div>
+</div>
+<!-- Modal вікно Зв’язку закрите -->
+
+
+<!-- Modal вікно Замовлення відкрите -->
+<div id="orderModal" class="modal-overlay" onclick="handleOutsideClick(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div>
+                <span style="font-size: 22px; font-weight: 800; display: block;">Оформлення</span>
+                <span id="selectedProductTitle" style="font-size: 14px; color: var(--text-gray);">Товар</span>
+            </div>
+            <span class="close-modal" onclick="closeOrderModal()">✖</span>
+        </div>
+        
+        <label>Ваш номер телефону:</label>
+        <input type="tel" id="userPhone" maxlength="10" placeholder="0XXXXXXXXX">
+
+        <p style="font-size: 13px; color: #a1a1aa; margin-top: 20px; line-height: 1.4;">
+            Адміністратор зателефонує вам для уточнення деталей.
+        </p>
+
+        <input type="hidden" id="currentProductName" value="">
+<input type="hidden" id="currentProductSKU" value="">
+
+        <button class="buy-btn" style="width: 100%; border: none; cursor: pointer; margin-top: 15px;" onclick="validateAndSend()">ЗАМОВИТИ</button>
+    </div>
+</div>
+<!-- Modal вікно Замовлення закрите -->
+
+
+<!-- Підключення  JS логіки відкрите -->
+   <script src="shop.js"></script>
+<!-- Підключення  JS логіки закрите -->
+
 
 </body>
+<!-- Body  закритий --!>
+
+
 </html>
 
