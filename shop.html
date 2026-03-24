@@ -610,6 +610,18 @@
     }
 }
 
+/* Запобігання автоматичному зуму на мобільних пристроях */
+@media (max-width: 768px) {
+    .search-input {
+        font-size: 16px !important; /* Браузер не буде зумити, бо шрифт >= 16px */
+    }
+    
+    /* Якщо 16px виглядає завеликим, можна візуально зменшити текст */
+    .search-input::placeholder {
+        font-size: 14px;
+    }
+}
+
 /* === КОШИК ЯК ПОШУК === */
 .cart-container {
     display: flex;
