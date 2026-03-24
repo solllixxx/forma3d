@@ -606,6 +606,148 @@
         opacity: 0;
     }
 }
+
+/* === КОШИК ЯК ПОШУК === */
+.cart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.07);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+
+    height: 42px;
+    width: 42px;
+
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    backdrop-filter: blur(10px);
+}
+
+.cart-container:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Іконка */
+.cart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Лічильник */
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    background: white;
+    color: black;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    padding: 3px 6px;
+    border-radius: 10px;
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    width: 26px;
+    height: 26px;
+
+    border-radius: 8px;
+    border: 1px solid var(--border);
+
+    background: rgba(255,255,255,0.05);
+    color: white;
+
+    cursor: pointer;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.qty-btn:hover {
+    background: white;
+    color: black;
+}
+
+.qty-number {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Контейнер для списку товарів всередині модалки */
+#cartItems {
+    max-height: 350px;    /* Фіксована висота, після якої з'явиться скрол */
+    overflow-y: auto;     /* Дозволяємо вертикальну прокрутку */
+    overflow-x: hidden;   /* Ховаємо горизонтальну */
+    padding-right: 10px;  /* Відступ для скролбару */
+    margin-top: 10px;
+}
+
+/* Робимо скролбар тонким і стильним */
+#cartItems::-webkit-scrollbar {
+    width: 4px;
+}
+#cartItems::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+/* Додатково: зафіксуємо заголовок і футер модалки */
+.modal-content {
+    max-height: 90vh;    /* Щоб модалка не була більшою за екран */
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    flex-shrink: 0;      /* Заголовок не стискається */
+}
+
+/* Кнопки та телефон знизу теж не мають скролитись */
+#cartModal .buy-btn, 
+#cartModal input, 
+#cartModal label {
+    flex-shrink: 0;
+}
+
+.qty-btn, 
+.cart-remove-icon {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* Стандарт */
+    cursor: pointer;           /* Щоб було зрозуміло, що це кнопка */
+}
+
+/* Стан кнопки після натискання */
+.added {
+    background-color: #ffffff !important; /* Зелений колір успіху */
+    color: #000000 !important;           /* БІЛИЙ колір тексту */
+    pointer-events: none;                /* Забороняємо кліки, поки горить "ДОДАНО" */
+    user-select: none;                   /* Забороняємо виділення тексту */
+}
+
+/* Додамо плавності, щоб текст не змінювався надто різко */
+.buy-btn {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
   </style>
 </head>
 <body>
@@ -671,6 +813,17 @@
            onblur="if(this.value === '') this.parentElement.classList.remove('active')">
   </div>
 
+<div class="cart-container" onclick="openCart()">
+  <div class="cart-icon">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white">
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+  </div>
+  <span id="cartCount" class="cart-count">0</span>
+</div>
+
   <div style="display: flex; align-items: center;">
     <a href="index.html" class="btn" style="padding: 8px 16px; font-size: 12px;">НА ГОЛОВНУ</a>
   </div>
@@ -703,7 +856,7 @@
     <h3>3D Фігурка динозавр Діно Рекс</h3>
 <div class="price-row">
     <p>50 ₴</p>
-    <span class="sku-btn" onclick="copySKU(this, 'ART-3172')">ART-304172</span>
+    <span class="sku-btn" onclick="copySKU(this, 'ART-304172')">ART-304172</span>
 </div>
     
     <select class="color-select">
@@ -722,7 +875,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+        <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
     <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('3D Фігурка динозавр Діно Рекс', this)">КУПИТИ</a>
+
   </div>
 </div>
 
@@ -755,7 +914,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Фігура кам’яного обличчя', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -788,7 +953,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підпірка для дверей', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -821,7 +992,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Кейс для microSD-карт', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -854,7 +1031,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Тримач ременя', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -887,7 +1070,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Ручка для пакетів', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -920,7 +1109,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Заглушка на болт', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -942,7 +1137,13 @@
         <option value="Стандартний">Стандартний</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон у формі серця UA', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -975,7 +1176,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон Хвиля ', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -1008,7 +1215,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під Планшет, або Електронної книги', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -1041,7 +1254,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Підставка під телефон Піраміда', this)">КУПИТИ</a>
+
       </div>
     </div>
 
@@ -1074,7 +1293,13 @@
         <option value="Пляшковий-зелений">Пляшковий-зелений</option>
     </select>
 
+            <a href="javascript:void(0)" class="buy-btn" style="margin-top:0px; margin-bottom: 15px; background:#2a2a2a; color:white;"
+   onclick="addToCart(this)">
+   В КОШИК
+</a>
+
         <a href="javascript:void(0)" class="buy-btn" onclick="openOrderModal('Набір тримачей для біт', this)">КУПИТИ</a>
+
       </div>
     </div>
       
@@ -1387,7 +1612,225 @@ function liveSearch() {
         }
     });
 }
+
+let cart = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+    cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
+    updateCartUI();
+});
+
+function saveCart() {
+    localStorage.setItem('forma3d_cart', JSON.stringify(cart));
+}
+
+function addToCart(btn) {
+    // 1. Перевіряємо, чи кнопка вже в стані "ДОДАНО"
+    // Це важливо, щоб таймер не скидався при кожному кліку
+    if (btn.classList.contains('added')) return;
+
+    const card = btn.closest('.card-info');
+    const title = card.querySelector('h3').innerText;
+    
+    // Отримуємо ціну (прибираємо пробіли та "₴", якщо вони є, щоб parseInt спрацював чисто)
+    const priceText = card.querySelector('.price-row p').innerText;
+    const price = parseInt(priceText.replace(/[^0-9]/g, '')); 
+    
+    const colorSelect = card.querySelector('.color-select');
+
+    // Перевірка вибору кольору
+    if (!colorSelect.value) {
+        colorSelect.classList.add("color-error");
+        setTimeout(() => colorSelect.classList.remove("color-error"), 1500);
+        return;
+    }
+
+    const color = colorSelect.value;
+    const existing = cart.find(item => item.title === title && item.color === color);
+
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        const sku = card.querySelector('.sku-btn')?.innerText || '';
+        cart.push({
+            title,
+            price,
+            color,
+            sku,
+            qty: 1
+        });
+    }
+
+    // 2. ФІДБЕК КНОПКИ
+    const originalText = btn.innerText;
+    btn.classList.add('added');
+    btn.innerText = 'ДОДАНО';
+
+    // 3. Повертаємо початковий стан через 2 секунди
+    setTimeout(() => {
+        btn.classList.remove('added');
+        btn.innerText = originalText;
+    }, 2000);
+
+    updateCartUI();
+    saveCart();
+}
+function updateCartUI() {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    const countEl = document.getElementById('cartCount');
+
+    container.innerHTML = "";
+
+    let total = 0;
+    let count = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        count += item.qty;
+
+container.innerHTML += `
+<div style="margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">
+    <b>${item.title}</b><br>
+    Колір: ${item.color}<br>
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+        
+        <div class="qty-controls" style="user-select: none; -webkit-user-select: none; display: flex; align-items: center;">
+            <div class="qty-btn" onclick="changeQty(${index}, -1)" style="cursor:pointer; padding: 0 5px;">−</div>
+            <div class="qty-number" style="margin: 0 10px;">${item.qty}</div>
+            <div class="qty-btn" onclick="changeQty(${index}, 1)" style="cursor:pointer; padding: 0 5px;">+</div>
+        </div>
+
+        <div style="user-select: none; -webkit-user-select: none; display: flex; align-items: center;">
+            <span>${item.price * item.qty} ₴</span>
+            <span onclick="removeItem(${index})" 
+                  style="cursor:pointer; margin-left:15px; font-size: 1.1em; display: inline-block; line-height: 1;">
+                  ✖
+            </span>
+        </div>
+
+    </div>
+</div>
+`;
+    });
+
+    totalEl.innerText = total;
+    countEl.innerText = count;
+}
+
+function changeQty(index, delta) {
+    cart[index].qty += delta;
+
+    if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+    }
+
+        updateCartUI();
+    saveCart();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+        updateCartUI();
+    saveCart();
+}
+
+function openCart() {
+    document.getElementById("cartModal").style.display = "flex";
+}
+
+function closeCart() {
+    document.getElementById("cartModal").style.display = "none";
+}
+
+function sendCartOrder() {
+    const phoneInput = document.getElementById("cartPhone");
+    const phone = phoneInput.value.trim();
+
+    if (phone.length !== 10) {
+        phoneInput.classList.add("input-error");
+        setTimeout(() => {
+            phoneInput.classList.remove("input-error");
+        }, 1500);
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert("Кошик порожній");
+        return;
+    }
+
+    // Формуємо текст листа
+    let text = "НОВЕ ЗАМОВЛЕННЯ З КОШИКА\n\n";
+
+    cart.forEach((item, index) => {
+        text += `${index + 1}. ${item.title}\n`;
+        text += `   Артикул: ${item.sku || 'Не вказано'}\n`; // ДОДАНО АРТИКУЛ
+        text += `   Колір: ${item.color}\n`;
+        text += `   Кількість: ${item.qty} шт.\n`;
+        text += `   Ціна: ${item.price * item.qty} ₴\n\n`;
+    });
+
+    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+    text += `--------------------------\n`;
+    text += `ЗАГАЛЬНА СУМА: ${total} ₴\n`;
+    text += `ТЕЛЕФОН: ${phone}`;
+
+    const subject = encodeURIComponent("Замовлення Forma3D (Кошик)");
+    const body = encodeURIComponent(text);
+
+    const isWindows = navigator.platform.toLowerCase().includes('win');
+
+    if (isWindows) {
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=forma3d.info.ua@gmail.com&su=${subject}&body=${body}`, '_blank');
+    } else {
+        window.location.href = `mailto:forma3d.info.ua@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // Опціонально: очистити кошик після натискання "Замовити"
+    // cart = [];
+    // saveCart();
+    // updateCartUI();
+    // closeCart();
+}
+
+document.getElementById('cartPhone').addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/\D/g, '');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
+    updateCartUI();
+});
 </script>
+
+<div id="cartModal" class="modal-overlay" onclick="closeCart(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    
+    <div class="modal-header">
+      <span style="font-size:22px;font-weight:800;">Кошик</span>
+      <span class="close-modal" onclick="closeCart()">✖</span>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div style="margin-top:20px; font-weight:600;">
+      Всього: <span id="cartTotal">0</span> ₴
+    </div>
+
+    <label>Ваш номер телефону:</label>
+    <input type="tel" id="cartPhone" maxlength="10" placeholder="0XXXXXXXXX" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
+
+        <p style="font-size: 13px; color: #a1a1aa; margin-top: 20px; line-height: 1.4;">
+            Адміністратор зателефонує вам для уточнення деталей.
+        </p>
+        
+    <button class="buy-btn" onclick="sendCartOrder()">ЗАМОВИТИ</button>
+
+  </div>
+</div>
 
 </body>
 </html>
