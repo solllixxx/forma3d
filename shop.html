@@ -801,6 +801,53 @@
         display: block; /* Показуємо стрілку */
     }
 }
+
+.search-results-popover {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background: rgba(17, 17, 19, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none; /* Сховано за замовчуванням */
+    z-index: 2000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    gap: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.suggestion-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.suggestion-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.suggestion-info h4 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.suggestion-info span {
+    font-size: 12px;
+    color: var(--text-gray);
+}
   </style>
 </head>
 <body>
@@ -850,21 +897,24 @@
 <header id="navbar">
   <div class="logo">FORMA3D</div>
   
-  <div class="search-container" id="searchWrapper">
+<div class="search-container" id="searchWrapper">
     <div class="search-icon-label">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
     </div>
+
     <input type="text" 
            class="search-input" 
            id="mainSearch" 
            placeholder="Пошук..." 
            oninput="liveSearch()" 
            onfocus="this.parentElement.classList.add('active')" 
-           onblur="if(this.value === '') this.parentElement.classList.remove('active')">
-  </div>
+           onblur="handleBlur()">
+
+    <div id="searchSuggestions" class="search-results-popover"></div>
+</div>
 
 <div class="cart-container" onclick="openCart()">
   <div class="cart-icon">
@@ -1653,24 +1703,62 @@ function handleBlur() {
 
 // Функція пошуку
 function liveSearch() {
-    let input = document.getElementById('mainSearch').value.toLowerCase();
-    let cards = document.querySelectorAll('.card');
+    const input = document.getElementById('mainSearch').value.toLowerCase();
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    const cards = document.querySelectorAll('.card');
     
+    // Очищуємо попередні результати
+    suggestionsContainer.innerHTML = '';
+
+    if (input.length < 1) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+
+    let foundAny = false;
+
     cards.forEach(card => {
-        let title = card.querySelector('h3').innerText.toLowerCase();
-        // Перевірка наявності SKU перед пошуком
-        let skuBtn = card.querySelector('.sku-btn');
-        let sku = skuBtn ? skuBtn.innerText.toLowerCase() : "";
-        
-        if (title.includes(input) || sku.includes(input)) {
-            card.classList.remove('search-hidden');
-            card.style.display = "flex";
-        } else {
-            card.classList.add('search-hidden');
-            card.style.display = "none";
+        const title = card.querySelector('h3').innerText;
+        const price = card.querySelector('.price-row p').innerText;
+        const imgSrc = card.querySelector('.card-image img').src;
+        const skuText = card.querySelector('.sku-btn')?.innerText || "";
+
+        if (title.toLowerCase().includes(input) || skuText.toLowerCase().includes(input)) {
+            foundAny = true;
+            
+            // Створюємо елемент підказки
+            const div = document.createElement('div');
+            div.className = 'suggestion-item';
+            div.innerHTML = `
+                <img src="${imgSrc}">
+                <div class="suggestion-info">
+                    <h4>${title}</h4>
+                    <span>${price}</span>
+                </div>
+            `;
+            
+            // При кліку на підказку — скролимо до товару
+            div.onclick = () => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.style.borderColor = 'white';
+                setTimeout(() => card.style.borderColor = '', 2000);
+                suggestionsContainer.style.display = 'none';
+                document.getElementById('mainSearch').value = '';
+            };
+            
+            suggestionsContainer.appendChild(div);
         }
     });
+
+    suggestionsContainer.style.display = foundAny ? 'block' : 'none';
 }
+
+// Закриваємо підказки, якщо клікнули поза пошуком
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+        document.getElementById('searchSuggestions').style.display = 'none';
+    }
+});
 
 let cart = [];
 
