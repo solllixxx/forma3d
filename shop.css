@@ -822,3 +822,15 @@
     font-size: 12px;
     color: var(--text-gray);
 }
+
+.btn-home, 
+.search-container, 
+.cart-container {
+    height: 42px;
+    /* Якщо хочете ідеальні квадрати для іконок на мобільних: */
+    min-width: 42px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0; /* Прибираємо зовнішні відступи, щоб працював тільки gap хедера */
+}
