@@ -107,41 +107,6 @@ function handleOutsideClick(event) {
     if (event.target.id === "orderModal") closeOrderModal();
 }
 
-// Валідація телефону та фінальна відправка на пошту
-function validateAndSend() {
-    const phoneInput = document.getElementById("userPhone");
-    const phone = phoneInput.value.trim();
-    const productName = document.getElementById("currentProductName").value;
-    const productSKU = document.getElementById("currentProductSKU").value; // Беремо артикул
-    
-    if (phone.length !== 10) {
-        phoneInput.classList.add("input-error");
-        setTimeout(() => { phoneInput.classList.remove("input-error"); }, 1500);
-        return;
-    }
-
-    const targetEmail = "forma3d.info.ua@gmail.com";
-    const subject = encodeURIComponent(`Замовлення: ${productName} (Арт: ${productSKU})`);
-    
-    // Формуємо текст листа з артикулом
-    const bodyText = `НОВЕ ЗАМОВЛЕННЯ\n\n` +
-                     `Товар: ${productName}\n` +
-                     `Артикул: ${productSKU}\n` + 
-                     `Колір: ${selectedColor}\n` +
-                     `Телефон: ${phone}`;
-                     
-    const bodyEncoded = encodeURIComponent(bodyText);
-
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-    if (isWindows) {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${subject}&body=${bodyEncoded}`, '_blank');
-    } else {
-        window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${bodyEncoded}`;
-    }
-
-    closeOrderModal();
-}
-
 // === ДОПОМІЖНІ ФУНКЦІЇ ===
 
 // Пряма відправка пошти (для футера)
@@ -437,58 +402,6 @@ function closeCart() {
     document.getElementById("cartModal").style.display = "none";
 }
 
-function sendCartOrder() {
-    const phoneInput = document.getElementById("cartPhone");
-    const phone = phoneInput.value.trim();
-
-    if (phone.length !== 10) {
-        phoneInput.classList.add("input-error");
-        setTimeout(() => {
-            phoneInput.classList.remove("input-error");
-        }, 1500);
-        return;
-    }
-
-    if (cart.length === 0) {
-        alert("Кошик порожній");
-        return;
-    }
-
-    // Формуємо текст листа
-    let text = "НОВЕ ЗАМОВЛЕННЯ З КОШИКА\n\n";
-
-    cart.forEach((item, index) => {
-        text += `${index + 1}. ${item.title}\n`;
-        text += `   Артикул: ${item.sku || 'Не вказано'}\n`; // ДОДАНО АРТИКУЛ
-        text += `   Колір: ${item.color}\n`;
-        text += `   Кількість: ${item.qty} шт.\n`;
-        text += `   Ціна: ${item.price * item.qty} ₴\n\n`;
-    });
-
-    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-
-    text += `--------------------------\n`;
-    text += `ЗАГАЛЬНА СУМА: ${total} ₴\n`;
-    text += `ТЕЛЕФОН: ${phone}`;
-
-    const subject = encodeURIComponent("Замовлення Forma3D (Кошик)");
-    const body = encodeURIComponent(text);
-
-    const isWindows = navigator.platform.toLowerCase().includes('win');
-
-    if (isWindows) {
-        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=forma3d.info.ua@gmail.com&su=${subject}&body=${body}`, '_blank');
-    } else {
-        window.location.href = `mailto:forma3d.info.ua@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    // Опціонально: очистити кошик після натискання "Замовити"
-    // cart = [];
-    // saveCart();
-    // updateCartUI();
-    // closeCart();
-}
-
 document.getElementById('cartPhone').addEventListener('input', function (e) {
     e.target.value = e.target.value.replace(/\D/g, '');
 });
@@ -497,3 +410,90 @@ document.addEventListener('DOMContentLoaded', () => {
     cart = JSON.parse(localStorage.getItem('forma3d_cart')) || [];
     updateCartUI();
 });
+
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1486432339096502457/MKBiDKdXRXhTey8RSjB0WDl3non0EkKHZq3zSZOObbyvkG6EdNYNB9k-2dgU7Rd17Jfl';
+
+// === ФУНКЦІЯ ВІДПРАВКИ В DISCORD ===
+async function sendToDiscord(content) {
+    try {
+        const response = await fetch(DISCORD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: content })
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Discord Error:', error);
+        return false;
+    }
+}
+
+// Функція для ефекту "Крутіння лого"
+function showSuccessAnimation() {
+    const loader = document.getElementById('orderLoader');
+    
+    // Закриваємо всі відкриті модалки
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    
+    // Додаємо блюр на фон та показуємо лого
+    document.body.classList.add('processing');
+    loader.style.display = 'block';
+
+    // Через 2 секунди все прибираємо
+    setTimeout(() => {
+        document.body.classList.remove('processing');
+        loader.style.display = 'none';
+        document.body.style.overflow = "auto";
+    }, 2000);
+}
+
+// === ЗАМОВЛЕННЯ ОДНОГО ТОВАРУ ===
+async function validateAndSend() {
+    const phoneInput = document.getElementById("userPhone");
+    const phone = phoneInput.value.trim();
+    const productName = document.getElementById("currentProductName").value;
+    const productSKU = document.getElementById("currentProductSKU").value;
+    
+    if (phone.length < 5) {
+        phoneInput.classList.add("input-error");
+        setTimeout(() => phoneInput.classList.remove("input-error"), 1500);
+        return;
+    }
+
+    const message = `**📦 НОВЕ ЗАМОВЛЕННЯ**\n**Товар:** ${productName}\n**Арт:** ${productSKU}\n**Колір:** ${selectedColor}\n**Телефон:** \`${phone}\``;
+
+    // Запускаємо анімацію відразу (UX: користувач бачить результат миттєво)
+    showSuccessAnimation();
+    
+    // Відправляємо в Discord паралельно
+    await sendToDiscord(message);
+    phoneInput.value = "";
+}
+
+// === ЗАМОВЛЕННЯ З КОШИКА ===
+async function sendCartOrder() {
+    const phoneInput = document.getElementById("cartPhone");
+    const phone = phoneInput.value.trim();
+
+    if (phone.length < 5 || cart.length === 0) {
+        phoneInput.classList.add("input-error");
+        setTimeout(() => phoneInput.classList.remove("input-error"), 1500);
+        return;
+    }
+
+    let text = `**🛒 ЗАМОВЛЕННЯ З КОШИКА**\n\n`;
+    cart.forEach((item, i) => {
+        text += `${i + 1}. **${item.title}** [${item.sku}]\n   Колір: ${item.color} | ${item.qty} шт.\n\n`;
+    });
+    text += `**Сума:** ${document.getElementById('cartTotal').innerText} ₴\n**Тел:** \`${phone}\``;
+
+    // Запускаємо анімацію
+    showSuccessAnimation();
+
+    // Чистимо кошик і шлемо в Discord
+    await sendToDiscord(text);
+    cart = [];
+    localStorage.removeItem('forma3d_cart');
+    updateCartUI();
+    phoneInput.value = "";
+}
